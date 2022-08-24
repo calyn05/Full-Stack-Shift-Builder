@@ -1,15 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap");
 
 :root {
-  --clr-primary-400: hsl(228, 39%, 23%);
+  /* colors */
+  --main-background__color: hsl(227, 100%, 98%);
+  --section-background__color: hsl(0, 0%, 100%);
+  --main-txt__color: hsl(213, 46%, 18%);
+  --heading-txt__color: hsl(228, 91%, 17%);
+  --btn-background__color: hsl(32, 98%, 49%);
+  --secondary-btn__color: hsl(160, 100%, 75%);
 
-  --clr-accent-500: hsl(12, 60%, 45%);
-  --clr-accent-400: hsl(12, 88%, 59%);
-  --clr-accent-300: hsl(12, 88%, 75%);
-  --clr-accent-100: hsl(13, 100%, 96%);
+  --glass-effect__color: hsla(0, 0%, 100%, 0.5);
 
-  --clr-neutral-900: hsl(232, 12%, 13%);
-  --clr-neutral-100: hsl(0, 0%, 100%);
+  /* dark mode */
+  --main-background__color-dark: hsl(221, 42%, 13%);
+  --section-background__color-dark: hsl(224, 40%, 20%);
+  --main-txt__color-dark: hsl(222, 22%, 79%);
+  --heading-txt__color-dark: hsl(225, 40%, 96%);
+  --btn-background__color-dark: hsl(36, 87%, 27%);
+
+  --glass-effect__color-dark: hsla(0, 0%, 0%, 0.7);
+
+  /* font */
 
   --ff-primary: "Be Vietnam Pro", sans-serif;
 
@@ -42,9 +53,14 @@
   --size-700: 3rem;
   --size-800: 4rem;
   --size-900: 5rem;
+
+  /* Circle animation timer */
+
+  --first-half-circle-timer: 0s;
+  --second-half-circle-timer: 0s;
 }
 
-@media (min-width: 50em) {
+@media (min-width: 32em) {
   :root {
     --fs-body: var(--fs-500);
     --fs-primary-heading: var(--fs-900);
@@ -53,6 +69,8 @@
     --fs-nav: var(--fs-300);
   }
 }
+
+/* CSS reset - modern */
 
 *,
 *::before,
@@ -77,24 +95,52 @@ html:focus-within {
 
 html,
 body {
-  height: 100%;
+  height: 100vh;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
 }
 
 body {
+  position: relative;
+  min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   font-family: var(--ff-primary);
   font-size: var(--fs-body);
-  color: var(--clr-primary-400);
-  background-image: url(./images/-manage-my-shifts-background-image.jpg);
+  color: var(--main-txt__color);
+  background-image: url(./images/mobile-background-image.jpg);
+  background-color: var(--main-background__color);
   background-size: cover;
+  background-position: right;
+  background-repeat: no-repeat;
+  transition: background-image 0.4s ease-in-out;
 }
 
 img,
 picture,
 svg {
   max-width: 100%;
+  height: auto;
   display: block;
+}
+
+/* Glassmorphism effect */
+
+main {
+  min-height: 100vh;
+  background-color: var(--glass-effect__color);
+  backdrop-filter: blur(5px);
+  padding: 3vmin;
+  text-align: center;
 }
 
 /* Remove animations...... User prefered */
@@ -114,10 +160,432 @@ svg {
   }
 }
 
-div {
+/* Utility classes */
+
+.headings-txt__color {
+  color: var(--heading-txt__color);
+}
+
+.btn-background__color {
+  background-color: var(--btn-background__color);
+}
+
+.section-background__color {
+  background-color: var(--section-background__color);
+}
+
+.fw-700 {
+  font-weight: var(--fw-bold);
+}
+
+.fw-500 {
+  font-weight: var(--fw-semi-bold);
+}
+
+.fw-400 {
+  font-weight: var(--fw-regular);
+}
+
+.fs-primary__heading {
+  font-size: var(--fs-primary-heading);
+  line-height: 1.1;
+}
+
+.fs-secondary__heading {
+  font-size: var(--fs-secondary-heading);
+  line-height: 1.1;
+}
+
+.fs-300 {
+  font-size: var(--fs-300);
+}
+
+.fs-400 {
+  font-size: var(--fs-400);
+}
+
+.fs-500 {
+  font-size: var(--fs-500);
+}
+
+.fs-600 {
+  font-size: var(--fs-600);
+}
+
+.flow > *:where(:not(:first-child)) {
+  margin-top: var(--flow-space, 1rem);
+}
+
+.flex {
+  display: flex;
+  gap: var(--gap, 1rem);
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap, 1rem);
+}
+
+.grid {
+  display: grid;
+  gap: var(--gap, 1rem);
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+/* Tablet size */
+
+@media screen and (min-width: 32em) {
+  :root {
+    --fs-body: var(--fs-500);
+    --fs-primary-heading: var(--fs-800);
+    --fs-secondary-heading: var(--fs-700);
+    --fs-nav: var(--fs-300);
+  }
+
+  body {
+    background-image: url(./images/tablet-background.jpg);
+    background-size: cover;
+  }
+
+  .login-section {
+    min-width: 70%;
+    align-self: center;
+  }
+
+  .color-mode__container {
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+}
+
+/* Big screen devices */
+
+@media screen and (min-width: 62em) {
+  :root {
+    --fs-body: var(--fs-500);
+    --fs-primary-heading: var(--fs-900);
+    --fs-secondary-heading: var(--fs-800);
+    --fs-nav: var(--fs-300);
+  }
+
+  body {
+    background-image: url(./images/-manage-my-shifts-background-image.jpg);
+    background-size: cover;
+  }
+
+  main {
+    justify-content: space-evenly;
+  }
+
+  .primary-header {
+    padding: 0.5rem 0;
+    background-color: hsla(0, 0%, 0%, 0.3);
+    backdrop-filter: blur(5px);
+    border-radius: 2vmin;
+    box-shadow: var(--main-background__color) 0 0 0.5rem;
+  }
+
+  .login-nav form {
+    margin-top: 0;
+  }
+
+  .login-section {
+    max-width: 70%;
+    min-width: 50%;
+    justify-self: center;
+    align-self: center;
+  }
+}
+
+/* Header */
+
+.color-mode__container {
+  position: absolute;
+  top: 1rem;
+  right: 0.5rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1vmin;
+  z-index: 10;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.color-mode__container:hover {
+  box-shadow: 0 0 0.5rem 0.5rem var(--glass-effect__color-dark);
+}
+
+@media screen and (min-width: 32em) {
+  .color-mode__container {
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 62em) {
+  .color-mode__container {
+    top: 1.5rem;
+    right: 2rem;
+  }
+}
+
+.login-nav {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--btn-background__color);
+}
+
+.login-nav h1 {
+  text-shadow: var(--main-txt__color) 0 0.2rem 0.2rem;
+}
+
+.logo {
+  width: 7em;
+  height: auto;
+  transition: all 0.4s ease-in-out;
+  border-radius: 50%;
+}
+
+.logo:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  box-shadow: var(--btn-background__color) 0 0.1rem 0.7rem;
+}
+
+.logo img {
   width: 100%;
   height: 100%;
-  background-color: rgba(112, 78, 26, 0.4);
-  /* background-color: rgba(255, 255, 255, 0.5); */
-  backdrop-filter: blur(10px);
+  border-radius: 50%;
+}
+
+.login-nav button {
+  border: none;
+  background-color: var(--btn-background__color);
+  color: var(--main-txt__color);
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  font-size: var(--fs-500);
+  font-weight: var(--fw-semi-bold);
+  box-shadow: var(--main-txt__color) 0 0 0.7rem 0.1rem;
+  transition: all 0.4s ease-in-out;
+}
+
+.login-nav button:hover,
+.login-nav button:focus {
+  background-color: var(--secondary-btn__color);
+}
+
+@media screen and (min-width: 62em) {
+  .login-nav {
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  .login-nav h1 {
+    margin-top: 0;
+  }
+}
+
+/* Login section */
+
+.login-section {
+  background-color: transparent;
+  padding: 7vmin;
+  border-radius: 1em;
+  box-shadow: var(--main-txt__color) 0 0 0.7rem 0.1rem;
+}
+
+.login-section h2 {
+  text-shadow: var(--btn-background__color) 0 0.1rem 0.1rem;
+}
+
+.login-section form {
+  text-align: left;
+  text-indent: 1rem;
+  font-weight: var(--fw-semi-bold);
+}
+
+.login-section input {
+  border: none;
+  border-bottom: 1px solid var(--main-txt__color);
+  padding: 0.5em 1em;
+  border-radius: 2vmin;
+  background: none;
+  box-shadow: var(--main-txt__color) 0 0 0.7rem 0.1rem;
+  text-align: center;
+  transition: all 0.4s ease-in-out;
+}
+
+.login-section input:focus {
+  border-bottom: 1px solid var(--btn-background__color);
+  outline: none;
+  background-color: var(--section-background__color);
+}
+
+.login-section input:hover {
+  border-bottom: 1px solid var(--secondary-btn__color);
+}
+
+.login-section button {
+  border: none;
+  background-color: var(--secondary-btn__color);
+  color: var(--main-txt__color);
+  width: 50%;
+  align-self: center;
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  font-size: var(--fs-500);
+  font-weight: var(--fw-semi-bold);
+  box-shadow: var(--main-txt__color) 0 0 0.7rem 0.1rem;
+  transition: all 0.4s ease-in-out;
+}
+
+.login-section button:hover,
+.login-section button:focus {
+  background-color: var(--btn-background__color);
+}
+
+.error {
+  box-shadow: hsl(0, 100%, 50%) 0 0 0.7rem 0.1rem;
+}
+
+/* Loading circle  - Modal */
+
+.loading-circle__modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+}
+
+.loading-circle {
+  position: relative;
+  overflow: hidden;
+  width: 6rem;
+  height: 6rem;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0.1rem 0.2rem 0.5rem 0.1rem var(--main-txt__color);
+}
+
+.loading-circle::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background-color: var(--btn-background__color);
+  backdrop-filter: blur(5px);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.4s ease-in-out;
+  z-index: 1;
+  box-shadow: 1rem 1rem 0.5rem 0.5rem var(--main-txt__color);
+}
+
+.loading-circle::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  height: 80%;
+  background-color: var(--main-background__color);
+  backdrop-filter: blur(5px);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  box-shadow: inset 0rem 0.2rem 0.5rem 0.1rem var(--main-txt__color),
+    inset 0.1rem 0.2rem 0.5rem 0.1rem var(--main-txt__color);
+}
+
+.loading-circle__percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  transition: all 0.1s ease-in-out;
+}
+
+.half-circle,
+.half-circle__top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  transform-origin: right center;
+}
+
+.half-circle:nth-child(2) {
+  background-color: var(--secondary-btn__color);
+  z-index: 2;
+  transition: transform var(--first-half-circle-timer) linear;
+}
+
+.half-circle:nth-child(3) {
+  background-color: var(--secondary-btn__color);
+  z-index: 2;
+  transition: transform var(--second-half-circle-timer) linear;
+}
+
+.half-circle__top {
+  background-color: var(--btn-background__color);
+  z-index: 2;
+  transition: opacity 0s var(--first-half-circle-timer);
+}
+
+.loading-circle__modal[aria-hidden="false"] .half-circle:nth-child(2) {
+  transform: rotate(180deg);
+}
+
+.loading-circle__modal[aria-hidden="false"] .half-circle:nth-child(3) {
+  transform: rotate(360deg);
+}
+
+.loading-circle__modal[aria-hidden="false"] .half-circle__top {
+  opacity: 0;
+}
+
+/* Login footer */
+
+.login-footer {
+  position: absolute;
+  width: 90%;
+  bottom: 1rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  text-align: center;
+  color: var(--main-txt__color);
+  padding: 0.5rem 0;
+  background-color: hsla(0, 0%, 0%, 0.4);
+  backdrop-filter: blur(5px);
+  border-radius: 2vmin;
+  box-shadow: var(--main-background__color) 0 0 0.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.login-footer a {
+  color: hsl(150, 100%, 40%);
+  text-decoration: none;
+}
+
+.login-footer:hover a {
+  color: var(--secondary-btn__color);
+}
+
+.login-footer:hover {
+  color: var(--btn-background__color);
+  box-shadow: 0.2rem 0.2rem 0.3rem 0.1rem var(--btn-background__color);
 }
