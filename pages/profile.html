@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="../assets/images/favicon.ico"
+      type="image/x-icon"
+    />
+    <title>Manage My Shifts - HomePage</title>
+    <link rel="stylesheet" href="../assets/style.css" />
+    <script src="../assets/main.js" type="module"></script>
+  </head>
+  <body class="homepage-body flex-column flow">
+    <header class="primary-header homepage-header flex">
+      <div class="homepage-login__data flex">
+        <div class="welcome-container flex-column">
+          <p class="fs-600">Hello</p>
+          <p class="fs-600 fw-700" id="homepage-username">Username</p>
+          <button class="fw-500">Log Out</button>
+        </div>
+        <div class="profile-img__container">
+          <img src="../assets/images/mobile-background-image.jpg" alt="" />
+        </div>
+      </div>
+
+      <!-- Mobile nav toggle -->
+      <button
+        class="mobile-nav__toggle"
+        aria-expanded="false"
+        aria-controls="primary-navigation"
+      >
+        <span class="screen-reader">Menu</span>
+      </button>
+
+      <nav class="nav-container homepage-nav flex-column flow">
+        <ul
+          id="primary-navigation"
+          data-visible="false"
+          class="primary-navigation underlined-indicators uppercase flex"
+        >
+          <li>
+            <a class="fw-700 fs-500 headings-txt__color" href="homepage.html"
+              >Shifts</a
+            >
+          </li>
+          <li>
+            <a class="fw-700 fs-500 headings-txt__color" href="add-shift.html"
+              >New Shift</a
+            >
+          </li>
+          <li class="active" aria-selected="true">
+            <a class="fw-700 fs-500 headings-txt__color" href="profile.html"
+              >Profile</a
+            >
+          </li>
+
+          <li class="logo homepage-logo__container">
+            <a href="homepage.html">
+              <img
+                src="../assets/images/manage-my-shifts-logo-light.jpg"
+                alt="logo"
+            /></a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="profile-main main-homepage user-data__container flex-column">
+      <h2 class="fs-secondary__heading fw-500 headings-txt__color">
+        Edit Profile
+      </h2>
+
+      <form class="profile-image__container flex-column">
+        <label for="profile picture">Profile picture</label>
+        <input
+          accept="image/*"
+          type="file"
+          id="image-input"
+          aria-hidden="true"
+        />
+        <img src="" alt="" id="profile-img" />
+        <button type="button" aria-controls="image-input">Change</button>
+      </form>
+
+      <form action="update" class="flex-column">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          autocomplete="username"
+          id="register-email"
+        />
+        <div class="data-container flex-column">
+          <div class="flex-column">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              autocomplete="username"
+              id="register-username"
+            />
+          </div>
+          <div class="flex-column">
+            <label for="Age">Age</label>
+            <input type="number" id="age" />
+          </div>
+        </div>
+
+        <div class="data-container flex-column">
+          <div class="flex-column">
+            <label for="First Name">First Name</label>
+            <input type="text" id="first-name" />
+          </div>
+          <div class="flex-column">
+            <label for="Last Name">Last Name</label>
+            <input type="text" id="last-name" />
+          </div>
+        </div>
+
+        <div class="data-container flex-column">
+          <div class="flex-column">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="login-password"
+              name="password"
+              autocomplete="current-password"
+            />
+          </div>
+
+          <div class="flex-column">
+            <label for="confirm-password">Confirm Password</label>
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirm-password"
+              autocomplete="current-password"
+            />
+          </div>
+        </div>
+        <button id="register-button">Update</button>
+      </form>
+    </main>
+
+    <div aria-modal="true" aria-hidden="true" class="loading-circle__modal">
+      <div class="loading-circle">
+        <p class="loading-circle__percentage fw-700 headings-txt__color"></p>
+        <div class="half-circle"></div>
+        <div class="half-circle"></div>
+        <div class="half-circle__top"></div>
+      </div>
+    </div>
+    <div
+      class="color-mode__container homepage-color__theme--container headings-txt__color fw-500 fs-600 flex"
+      id="color-theme"
+    >
+      <p>Dark</p>
+      <img src="../assets/images/icon-moon.svg" alt="Dark Mode icon" />
+    </div>
+    <footer class="footer homepage-footer flow">
+      <ul class="homepage-footer__nav fw-700 fs-600 flex">
+        <li>
+          <a href="homepage.html">My Shifts</a>
+        </li>
+        <li>
+          <a href="add-shift.html">Add New Shift</a>
+        </li>
+        <li>
+          <a href="profile.html">Profile</a>
+        </li>
+      </ul>
+      <p class="fw-700 fs-600">
+        &copy; Manage My Shifts 2022.
+        <a href="https://github.com/calyn05"> @Calyn05</a>
+      </p>
+    </footer>
+  </body>
+</html>

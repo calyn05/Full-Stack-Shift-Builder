@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="../assets/images/favicon.ico"
+      type="image/x-icon"
+    />
+    <title>Manage My Shifts - HomePage</title>
+    <link rel="stylesheet" href="../assets/style.css" />
+    <script src="../assets/main.js" type="module"></script>
+  </head>
+  <body class="homepage-body flex-column flow">
+    <header class="primary-header homepage-header flex">
+      <div class="homepage-login__data flex">
+        <div class="welcome-container flex-column">
+          <p class="fs-600">Hello</p>
+          <p class="fs-600 fw-700" id="homepage-username">Username</p>
+          <button class="fw-500">Log Out</button>
+        </div>
+        <div class="profile-img__container">
+          <img src="../assets/images/mobile-background-image.jpg" alt="" />
+        </div>
+      </div>
+
+      <!-- Mobile nav toggle -->
+      <button
+        class="mobile-nav__toggle"
+        aria-expanded="false"
+        aria-controls="primary-navigation"
+      >
+        <span class="screen-reader">Menu</span>
+      </button>
+
+      <nav class="nav-container homepage-nav flex-column flow">
+        <ul
+          id="primary-navigation"
+          data-visible="false"
+          class="primary-navigation underlined-indicators uppercase flex"
+        >
+          <li class="active" aria-selected="true">
+            <a class="fw-700 fs-500 headings-txt__color" href="homepage.html"
+              >Shifts</a
+            >
+          </li>
+          <li>
+            <a class="fw-700 fs-500 headings-txt__color" href="add-shift.html"
+              >New Shift</a
+            >
+          </li>
+          <li>
+            <a class="fw-700 fs-500 headings-txt__color" href="profile.html"
+              >Profile</a
+            >
+          </li>
+
+          <li class="logo homepage-logo__container">
+            <a href="homepage.html">
+              <img
+                src="../assets/images/manage-my-shifts-logo-light.jpg"
+                alt="logo"
+            /></a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-homepage user-data__container flex-column">
+      <div class="no-shift__container flex-column" aria-hidden="true">
+        <p class="fw-700 fs-600">No shifts added</p>
+        <form action="./add-shift.html" method="get" class="flex">
+          <button>Add New</button>
+        </form>
+      </div>
+
+      <section class="search-section flex-column" aria-hidden="true">
+        <form class="search-by__name flex" aria-hidden="true">
+          <div class="search-container__input flex-column">
+            <input
+              type="text"
+              placeholder="Search shift by name..."
+              class="search-input"
+              id="search-input"
+            />
+            <select
+              aria-hidden="true"
+              name="search-options"
+              id="search-options"
+              autofocus
+            >
+              <option value=""></option>
+              <option value="">Search by</option>
+              <option value="">Name</option>
+              <option value="">Date</option>
+              <option value="">Location</option>
+            </select>
+          </div>
+        </form>
+
+        <p id="search-paragraph" aria-hidden="true">Or, search shift by date</p>
+
+        <form class="search-by__date flex-column" aria-hidden="true">
+          <div class="search-date flex-column">
+            <label for="from-date">From</label>
+            <input type="date" id="from-date" />
+          </div>
+          <div class="search-date flex-column">
+            <label for="to-date">To</label>
+            <input type="date" id="to-date" />
+          </div>
+          <button type="submit">Search</button>
+        </form>
+      </section>
+
+      <section class="table-section flex-column" aria-hidden="false">
+        <table class="table-container">
+          <caption class="fw-700 fs-500" id="table-caption">
+            The fucking table
+          </caption>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Shift Name</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Wage / h</th>
+              <th>Location</th>
+              <th>Total profit / shift</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>12.08.2022</td>
+              <td>12h Bolt driving</td>
+              <td>22.00</td>
+              <td>06.00</td>
+              <td>100</td>
+              <td>Sector 3</td>
+              <td>800</td>
+            </tr>
+            <tr>
+              <td>12.08.2022</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>12.08.2022</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+          <tfoot class="fw-700">
+            <tr>
+              <td colspan="2">Highest earnings month</td>
+              <td colspan="5"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </section>
+    </main>
+
+    <button class="open-search" aria-controls="search-section">
+      Search shift
+    </button>
+
+    <div aria-modal="true" aria-hidden="true" class="loading-circle__modal">
+      <div class="loading-circle">
+        <p class="loading-circle__percentage fw-700 headings-txt__color"></p>
+        <div class="half-circle"></div>
+        <div class="half-circle"></div>
+        <div class="half-circle__top"></div>
+      </div>
+    </div>
+    <div
+      class="color-mode__container homepage-color__theme--container headings-txt__color fw-500 fs-600 flex"
+      id="color-theme"
+    >
+      <p>Dark</p>
+      <img src="../assets/images/icon-moon.svg" alt="Dark Mode icon" />
+    </div>
+    <footer class="footer homepage-footer flow">
+      <ul class="homepage-footer__nav fw-700 fs-600 flex">
+        <li>
+          <a href="homepage.html">My Shifts</a>
+        </li>
+        <li>
+          <a href="add-shift.html">Add New Shift</a>
+        </li>
+        <li>
+          <a href="profile.html">Profile</a>
+        </li>
+      </ul>
+      <p class="fw-700 fs-600">
+        &copy; Manage My Shifts 2022.
+        <a href="https://github.com/calyn05"> @Calyn05</a>
+      </p>
+    </footer>
+  </body>
+</html>

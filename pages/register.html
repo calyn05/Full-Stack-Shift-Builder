@@ -9,18 +9,21 @@
       href="../assets/images/favicon.ico"
       type="image/x-icon"
     />
-    <title>Manage My Shifts</title>
+    <title>Manage My Shifts - Register</title>
     <link rel="stylesheet" href="../assets/style.css" />
     <script src="../assets/main.js" type="module"></script>
   </head>
   <body>
-    <div class="color-mode__container headings-txt__color fw-500 fs-600 flex">
+    <div
+      class="color-mode__container login-theme__container headings-txt__color fw-500 fs-600 flex"
+      id="color-theme"
+    >
       <p>Dark</p>
       <img src="../assets/images/icon-moon.svg" alt="Dark Mode icon" />
     </div>
-    <main class="flex-column">
-      <header class="primary-header">
-        <nav class="login-nav flex-column flow">
+    <main class="login-page flex-column">
+      <header class="primary-header register-header">
+        <nav class="nav-container register-nav flex-column flow">
           <div class="logo">
             <a href="../index.html">
               <img
@@ -34,22 +37,76 @@
           </form>
         </nav>
       </header>
-      <p class="fw-700 fs-600">Or, if you already have an account</p>
-      <section class="login-section flex-column flow">
-        <h2 class="fs-secondary__heading fw-500 headings-txt__color">Login</h2>
-        <form action="login" class="flex-column">
+      <section
+        class="user-data__container register-data__container flex-column"
+      >
+        <h2 class="fs-secondary__heading fw-500 headings-txt__color">
+          Register
+        </h2>
+        <form action="register" class="flex-column">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" autocomplete="username" />
-          <label for="password">Password</label>
           <input
-            type="password"
-            id="login-password"
-            name="password"
-            autocomplete="current-password"
+            type="email"
+            id="email"
+            name="email"
+            autocomplete="username"
+            id="register-email"
           />
-          <button id="login-button">Login</button>
+          <div class="data-container flex-column">
+            <div class="flex-column">
+              <label for="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                autocomplete="username"
+                id="register-username"
+              />
+            </div>
+            <div class="flex-column">
+              <label for="Age">Age</label>
+              <input type="number" id="age" />
+            </div>
+          </div>
+
+          <div class="data-container flex-column">
+            <div class="flex-column">
+              <label for="First Name">First Name</label>
+              <input type="text" id="first-name" />
+            </div>
+            <div class="flex-column">
+              <label for="Last Name">Last Name</label>
+              <input type="text" id="last-name" />
+            </div>
+          </div>
+
+          <div class="data-container flex-column">
+            <div class="flex-column">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="login-password"
+                name="password"
+                autocomplete="current-password"
+              />
+            </div>
+
+            <div class="flex-column">
+              <label for="confirm-password">Confirm Password</label>
+              <input
+                type="password"
+                id="confirm-password"
+                name="confirm-password"
+                autocomplete="current-password"
+              />
+            </div>
+          </div>
+          <button id="register-button">Register</button>
         </form>
       </section>
+      <p class="fw-700 fs-600">
+        Or, if you already have an account, <a href="../index.html">Login</a>
+      </p>
     </main>
     <div aria-modal="true" aria-hidden="true" class="loading-circle__modal">
       <div class="loading-circle">
@@ -59,7 +116,7 @@
         <div class="half-circle__top"></div>
       </div>
     </div>
-    <footer class="login-footer">
+    <footer class="footer register-footer">
       <p class="fw-500 fs-600">
         Made with { 💚 } by {
         <a
