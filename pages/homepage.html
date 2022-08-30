@@ -19,10 +19,12 @@
         <div class="welcome-container flex-column">
           <p class="fs-600">Hello</p>
           <p class="fs-600 fw-700" id="homepage-username">Username</p>
-          <button class="fw-500">Log Out</button>
+          <button class="log-out__btn fw-500" id="log-out-btn">Log Out</button>
         </div>
         <div class="profile-img__container">
-          <img src="../assets/images/mobile-background-image.jpg" alt="" />
+          <a href="profile.html">
+            <img src="../assets/images/mobile-background-image.jpg" alt="" />
+          </a>
         </div>
       </div>
 
@@ -69,15 +71,31 @@
     </header>
 
     <main class="main-homepage user-data__container flex-column">
-      <div class="no-shift__container flex-column" aria-hidden="true">
+      <div
+        class="no-shift__container flex-column"
+        aria-hidden="false"
+        id="no-shifts"
+      >
         <p class="fw-700 fs-600">No shifts added</p>
-        <form action="./add-shift.html" method="get" class="flex">
-          <button>Add New</button>
-        </form>
       </div>
+      <form
+        action="./add-shift.html"
+        method="get"
+        class="add-shift__homepage flex"
+      >
+        <button type="submit">Add New</button>
+      </form>
 
-      <section class="search-section flex-column" aria-hidden="true">
-        <form class="search-by__name flex" aria-hidden="true">
+      <section
+        class="search-section flex-column"
+        aria-hidden="true"
+        id="search-section"
+      >
+        <form
+          class="search-by__name flex"
+          aria-hidden="false"
+          id="search-by-name"
+        >
           <div class="search-container__input flex-column">
             <input
               type="text"
@@ -100,9 +118,15 @@
           </div>
         </form>
 
-        <p id="search-paragraph" aria-hidden="true">Or, search shift by date</p>
+        <p id="search-paragraph" aria-hidden="false">
+          Or, search shift by date
+        </p>
 
-        <form class="search-by__date flex-column" aria-hidden="true">
+        <form
+          class="search-by__date flex-column"
+          aria-hidden="true"
+          id="search-by-date"
+        >
           <div class="search-date flex-column">
             <label for="from-date">From</label>
             <input type="date" id="from-date" />
@@ -115,10 +139,14 @@
         </form>
       </section>
 
-      <section class="table-section flex-column" aria-hidden="false">
+      <section
+        class="table-section flex-column"
+        aria-hidden="true"
+        id="table-section"
+      >
         <table class="table-container">
           <caption class="fw-700 fs-500" id="table-caption">
-            The fucking table
+            Shifts
           </caption>
           <thead>
             <tr>
@@ -131,35 +159,7 @@
               <th>Total profit / shift</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>12.08.2022</td>
-              <td>12h Bolt driving</td>
-              <td>22.00</td>
-              <td>06.00</td>
-              <td>100</td>
-              <td>Sector 3</td>
-              <td>800</td>
-            </tr>
-            <tr>
-              <td>12.08.2022</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>12.08.2022</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
+          <tbody id="table-body"></tbody>
           <tfoot class="fw-700">
             <tr>
               <td colspan="2">Highest earnings month</td>
@@ -170,7 +170,12 @@
       </section>
     </main>
 
-    <button class="open-search" aria-controls="search-section">
+    <button
+      class="open-search"
+      aria-controls="search-section"
+      aria-hidden="true"
+      id="open-search-btn"
+    >
       Search shift
     </button>
 

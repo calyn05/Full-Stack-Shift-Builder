@@ -10,6 +10,7 @@
   --secondary-btn__color: hsl(160, 100%, 75%);
   --link-color: hsl(228, 100%, 50%);
   --header-box__shadow: hsl(0, 0%, 50%);
+  --box-shadow__main: hsl(0, 0%, 20%);
 
   --glass-effect__color: hsla(0, 0%, 100%, 0.5);
 
@@ -418,7 +419,7 @@ main.login-page {
   background-color: transparent;
   padding: 7vmin;
   border-radius: 1em;
-  box-shadow: var(--header-box__shadow) 0.1rem 0.1rem 0.5rem 0.2rem;
+  box-shadow: var(--box-shadow__main) 0.1rem 0.1rem 0.5rem 0.2rem;
 }
 
 .user-data__container h2 {
@@ -471,10 +472,6 @@ main.login-page {
 .user-data__container button:hover,
 .user-data__container button:focus {
   background-color: var(--btn-background__color);
-}
-
-.error {
-  box-shadow: hsl(0, 100%, 50%) 0 0 0.7rem 0.1rem;
 }
 
 /* Loading circle  - Modal */
@@ -628,6 +625,7 @@ main.login-page {
     --btn-background__color: var(--btn-background__color-dark);
     --link-color: var(--link-color__dark);
     --header-box__shadow: var(--header-box__shadow-dark);
+    --box-shadow__main: var(--header-box__shadow-dark);
 
     --glass-effect__color: var(--glass-effect__color-dark);
   }
@@ -643,6 +641,7 @@ main.login-page {
     --secondary-btn__color: hsl(160, 100%, 75%);
     --link-color: hsl(228, 100%, 50%);
     --header-box__shadow: hsl(0, 0%, 50%);
+    --box-shadow__main: hsl(0, 0%, 20%);
 
     --glass-effect__color: hsla(0, 0%, 100%, 0.5);
   }
@@ -656,6 +655,7 @@ main.login-page {
   --btn-background__color: var(--btn-background__color-dark);
   --link-color: var(--link-color__dark);
   --header-box__shadow: var(--header-box__shadow-dark);
+  --box-shadow__main: var(--header-box__shadow-dark);
 
   --glass-effect__color: var(--glass-effect__color-dark);
 }
@@ -669,6 +669,7 @@ main.login-page {
   --secondary-btn__color: hsl(160, 100%, 75%);
   --link-color: hsl(228, 100%, 50%);
   --header-box__shadow: hsl(0, 0%, 50%);
+  --box-shadow__main: hsl(0, 0%, 20%);
 
   --glass-effect__color: hsla(0, 0%, 100%, 0.5);
 }
@@ -764,10 +765,17 @@ main p a:hover {
   border-radius: 50%;
   margin-left: 1rem;
   overflow: hidden;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.profile-img__container:hover {
+  cursor: pointer;
+  box-shadow: 0 0 0.5rem 0.1rem var(--btn-background__color);
 }
 
 .welcome-container button {
   border: none;
+  width: 100%;
   background-color: var(--btn-background__color);
   color: hsl(0, 0%, 0%);
   border-radius: 1vmin;
@@ -796,6 +804,10 @@ main p a:hover {
 .homepage-footer a {
   color: var(--link-color);
   text-decoration: none;
+}
+
+.homepage-footer a:hover {
+  text-decoration: underline 2px var(--link-color);
 }
 
 @media (max-width: 32rem) {
@@ -870,7 +882,18 @@ main p a:hover {
   .mobile-nav__toggle[aria-expanded="true"] {
     background-image: url(../assets/images/icon-close.svg);
   }
+
+  .homepage-logo__container {
+    height: 6em;
+    width: 6em;
+  }
+
+  .homepage-logo__container > img {
+    width: 100%;
+    height: 100%;
+  }
 }
+
 @media screen and (min-width: 32rem) {
   .homepage-header {
     padding-inline-start: 6rem;
@@ -893,6 +916,18 @@ main p a:hover {
     top: 0.6em;
     left: 0.6em;
     height: 6em;
+    width: 6em;
+  }
+
+  .homepage-logo__container img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .homepage-login__data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -925,11 +960,15 @@ main p a:hover {
 
 .main-homepage {
   align-items: center;
-  justify-content: flex-start;
-  height: 70%;
+  justify-content: center;
+  height: fit-content;
   width: 100%;
   background-color: var(--section-background__color);
   padding: 1rem;
+}
+
+.add-shift__homepage button {
+  width: 100%;
 }
 
 .search-section {
@@ -1005,7 +1044,7 @@ main p a:hover {
   align-items: center;
 }
 
-.search-by__date[aria-hidden="true"] {
+.search-by__date[aria-hidden="false"] {
   display: none;
 }
 
@@ -1105,6 +1144,10 @@ table caption {
   color: var(--main-txt__color);
 }
 
+.open-search[aria-hidden="true"] {
+  display: none;
+}
+
 /* Add shift page */
 
 .add-shift__main {
@@ -1187,4 +1230,50 @@ input {
 
 input[aria-hidden="true"] {
   display: none;
+}
+
+.profile-image__container > img {
+  height: 10rem;
+  width: 10rem;
+  align-self: center;
+  border-radius: 50%;
+}
+
+.profile-image__container > button {
+  width: 80%;
+}
+
+.update-form {
+  width: 70%;
+}
+
+.confirm-update__password--container[aria-hidden="true"] {
+  display: none;
+}
+
+.profile-password__container[data-visible="false"] {
+  display: flex;
+}
+
+/* Show password */
+
+.password-container {
+  position: relative;
+}
+
+.show-password {
+  width: fit-content;
+  position: absolute;
+  bottom: 13%;
+  right: 4%;
+  height: fit-content;
+  color: var(--main-txt__color);
+  font-size: var(--fs-300);
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.show-password:hover,
+.show-password:focus {
+  color: var(--btn-background__color);
 }

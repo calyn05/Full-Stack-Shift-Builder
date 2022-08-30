@@ -1,4 +1,5 @@
 // Color theme selection
+const colorThemeSelection = document.querySelector(".color-mode__container");
 const colorThemeText = document.querySelector(".color-mode__container p");
 const colorThemeIcon = document.querySelector(".color-mode__container img");
 const logo = document.querySelector(".logo img");
@@ -62,4 +63,16 @@ function toggleColorTheme() {
   }
 }
 
-export { localStorageColorTheme, toggleColorTheme };
+// Remove text for smartphones
+function removeThemeText() {
+  if (window.innerWidth < 512) {
+    colorThemeText.textContent = "";
+  }
+}
+
+export {
+  localStorageColorTheme,
+  toggleColorTheme,
+  colorThemeSelection,
+  removeThemeText,
+};

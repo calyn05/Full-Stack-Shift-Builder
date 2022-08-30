@@ -19,10 +19,12 @@
         <div class="welcome-container flex-column">
           <p class="fs-600">Hello</p>
           <p class="fs-600 fw-700" id="homepage-username">Username</p>
-          <button class="fw-500">Log Out</button>
+          <button class="log-out__btn fw-500" id="log-out-btn">Log Out</button>
         </div>
         <div class="profile-img__container">
-          <img src="../assets/images/mobile-background-image.jpg" alt="" />
+          <a href="profile.html">
+            <img src="../assets/images/mobile-background-image.jpg" alt="" />
+          </a>
         </div>
       </div>
 
@@ -81,69 +83,85 @@
           id="image-input"
           aria-hidden="true"
         />
-        <img src="" alt="" id="profile-img" />
+        <img
+          src="../assets/images/tablet-background.jpg"
+          alt=""
+          id="profile-img"
+        />
         <button type="button" aria-controls="image-input">Change</button>
       </form>
 
-      <form action="update" class="flex-column">
+      <form class="update-form flex-column" id="update-form">
         <label for="email">Email</label>
         <input
           type="email"
-          id="email"
-          name="email"
+          name="Update email"
           autocomplete="username"
-          id="register-email"
+          id="update-email"
         />
         <div class="data-container flex-column">
           <div class="flex-column">
             <label for="username">Username</label>
             <input
               type="text"
-              id="username"
+              id="update-username"
               name="username"
               autocomplete="username"
-              id="register-username"
             />
           </div>
           <div class="flex-column">
             <label for="Age">Age</label>
-            <input type="number" id="age" />
+            <input type="number" id="update-age" />
           </div>
         </div>
 
         <div class="data-container flex-column">
           <div class="flex-column">
             <label for="First Name">First Name</label>
-            <input type="text" id="first-name" />
+            <input type="text" id="update-fname" autocomplete="given-name" />
           </div>
           <div class="flex-column">
             <label for="Last Name">Last Name</label>
-            <input type="text" id="last-name" />
+            <input type="text" id="update-lname" autocomplete="name" />
           </div>
         </div>
 
-        <div class="data-container flex-column">
-          <div class="flex-column">
+        <div
+          class="profile-password__container data-container flex-column"
+          data-visible="false"
+          id="profile-password-container"
+        >
+          <div class="password-container flex-column">
             <label for="password">Password</label>
             <input
               type="password"
-              id="login-password"
+              id="update-password"
               name="password"
               autocomplete="current-password"
             />
+            <span aria-controls="update-password" class="show-password"
+              >Show</span
+            >
           </div>
 
-          <div class="flex-column">
+          <div
+            class="confirm-update__password--container password-container flex-column"
+            aria-hidden="true"
+            id="confirm-update-password-container"
+          >
             <label for="confirm-password">Confirm Password</label>
             <input
               type="password"
-              id="confirm-password"
+              id="confirm-update__password"
               name="confirm-password"
               autocomplete="current-password"
             />
+            <span aria-controls="confirm-update__password" class="show-password"
+              >Show</span
+            >
           </div>
         </div>
-        <button id="register-button">Update</button>
+        <button id="update-button">Update</button>
       </form>
     </main>
 

@@ -37,21 +37,31 @@
         </nav>
       </header>
       <section class="user-data__container flex-column flow">
-        <h2 class="fs-secondary__heading fw-500 headings-txt__color">Login</h2>
-        <form action="login" class="flex-column">
-          <label for="email">Email or username</label>
-          <input type="email" id="email" name="email" autocomplete="username" />
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="login-password"
-            name="password"
-            autocomplete="current-password"
-          />
+        <h2
+          class="fs-secondary__heading fw-500 headings-txt__color"
+          id="login-page__text"
+        >
+          Login
+        </h2>
+        <form id="login-form" class="flex-column">
+          <label for="email" id="login-email__label">Email or username</label>
+          <input type="text" id="email" name="email" autocomplete="username" />
+          <div class="password-container flex-column">
+            <label for="password" id="login-password__label">Password</label>
+            <input
+              type="password"
+              id="login-password"
+              name="password"
+              autocomplete="current-password"
+            />
+            <span aria-controls="login-password" class="show-password"
+              >Show</span
+            >
+          </div>
           <p class="reset-paragraph">
             Forgot password? <a href="" id="reset-pass">Reset</a>
           </p>
-          <button id="login-button">Login</button>
+          <button type="submit" id="login-button">Login</button>
         </form>
       </section>
       <p class="main-paragraph fw-700 fs-600">

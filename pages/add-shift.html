@@ -19,10 +19,12 @@
         <div class="welcome-container flex-column">
           <p class="fs-600">Hello</p>
           <p class="fs-600 fw-700" id="homepage-username">Username</p>
-          <button class="fw-500">Log Out</button>
+          <button class="log-out__btn fw-500" id="log-out-btn">Log Out</button>
         </div>
         <div class="profile-img__container">
-          <img src="../assets/images/mobile-background-image.jpg" alt="" />
+          <a href="profile.html">
+            <img src="../assets/images/mobile-background-image.jpg" alt="" />
+          </a>
         </div>
       </div>
 
@@ -71,7 +73,7 @@
     <main
       class="add-shift__main main-homepage user-data__container flex-column"
     >
-      <form class="add-shift__data flex-column" aria-hidden="true">
+      <form class="add-shift__data flex-column" id="add-shift__form">
         <div class="add-date__select flex-column">
           <label for="select date">Select date</label>
           <input type="date" id="add-shift__date" />
@@ -101,7 +103,7 @@
           <label for="description">Comments</label>
           <textarea
             name="description"
-            id="description"
+            id="shift-notes"
             cols="30"
             rows="10"
           ></textarea>
