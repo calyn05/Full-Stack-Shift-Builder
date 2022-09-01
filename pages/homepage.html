@@ -82,6 +82,8 @@
         action="./add-shift.html"
         method="get"
         class="add-shift__homepage flex"
+        aria-hidden="false"
+        id="add-shift-homepage-form"
       >
         <button type="submit">Add New</button>
       </form>
@@ -135,7 +137,8 @@
             <label for="to-date">To</label>
             <input type="date" id="to-date" />
           </div>
-          <button type="submit">Search</button>
+          <button type="submit" id="search-button">Search</button>
+          <button type="button" id="cancel-search-button">Cancel</button>
         </form>
       </section>
 
@@ -173,7 +176,7 @@
     <button
       class="open-search"
       aria-controls="search-section"
-      aria-hidden="true"
+      aria-hidden="false"
       id="open-search-btn"
     >
       Search shift
@@ -235,16 +238,11 @@
             ></textarea>
           </div>
         </div>
-
-        <p
-          class="confirm-delete__text fs-secondary__heading"
-          id="confirm-delete-text"
-          aria-hidden="true"
+        <div
+          class="edit-buttons__container flex"
+          aria-hidden="false"
+          id="edit-buttons-container"
         >
-          Deleted data can not be recovered! Delete?
-        </p>
-
-        <div class="edit-buttons__container flex">
           <button
             class="update-shift__button"
             type="button"
@@ -256,6 +254,33 @@
             class="delete-shift__button"
             type="submit"
             id="delete-shift-btn"
+          >
+            Delete
+          </button>
+        </div>
+
+        <div
+          class="delete-container flex-column"
+          aria-hidden="true"
+          id="delete-shift-modal"
+        >
+          <p
+            class="confirm-delete__text fs-secondary__heading"
+            id="confirm-delete-text"
+          >
+            Deleted data can not be recovered! Delete?
+          </p>
+          <button
+            type="button"
+            class="cancel-delete__btn"
+            id="cancel-delete-btn"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="confirm-delete__shift--btn"
+            id="confirm-delete__shift--btn"
           >
             Delete
           </button>

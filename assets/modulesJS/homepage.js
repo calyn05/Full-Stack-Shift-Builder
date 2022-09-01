@@ -21,10 +21,12 @@ const searchOptions = document.getElementById("search-options");
 const searchByDateForm = document.getElementById("search-by-date");
 const tableSection = document.getElementById("table-section");
 const openSearchBtn = document.getElementById("open-search-btn");
+const closeSearchBtn = document.getElementById("cancel-search-button");
+const searchShiftsBtn = document.getElementById("search-button");
 
 // edit shift
 
-const tbodyShifts = document.querySelectorAll("tbody tr");
+const addShiftHomepageForm = document.getElementById("add-shift-homepage-form");
 const editShiftModal = document.getElementById("edit-shift-modal");
 const closeEditShiftModal = document.getElementById("close-modal-btn");
 const editShiftForm = document.getElementById("edit-shift-form");
@@ -39,11 +41,15 @@ const editWorkplace = document.getElementById("edit-workplace");
 const editShiftName = document.getElementById("edit-shift-name");
 const editCommentArea = document.getElementById("edit-shift-notes");
 
-const confirmDeleteText = document.getElementById("confirm-delete-text");
 const updateShiftBtn = document.getElementById("update-shift-btn");
 const deleteShiftBtn = document.getElementById("delete-shift-btn");
+const confirmDeleteBtn = document.getElementById("confirm-delete__shift--btn");
+const cancelDeleteBtn = document.getElementById("cancel-delete-btn");
+const deleteShiftModal = document.getElementById("delete-shift-modal");
+const editBtnContainer = document.getElementById("edit-buttons-container");
 
 // Check if the user is logged in
+
 function checkIfLoggedIn() {
   const users = getFromLocalStorage();
   const user = users.find((user) => {
@@ -172,15 +178,24 @@ function updateShift(e) {
 function checkForModalOpened() {
   if (editShiftModal) {
     updateShiftBtn.addEventListener("click", updateShift);
+    deleteShiftBtn.addEventListener("click", openDeleteModal);
+    closeEditShiftModal.addEventListener("click", closeEditModal);
+    if (confirmDeleteBtn) {
+      confirmDeleteBtn.addEventListener("click", deleteShift);
+      cancelDeleteBtn.addEventListener("click", closeDeleteModal);
+    }
   } else {
     return false;
   }
 }
 
+function closeEditModal() {
+  editShiftModal.setAttribute("aria-hidden", "true");
+}
+
 function calculateUpdatedProfit() {
   const startTime = new Date(editDate.value + " " + editStartTime.value);
   let endTime = new Date(editDate.value + " " + editEndTime.value);
-  console.log(startTime);
 
   const tomorrow = new Date(endTime);
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -202,21 +217,38 @@ function calculateUpdatedProfit() {
 
 // Delete shift
 
-// function deleteShift(e) {
-//   e.preventDefault();
-//   const users = getFromLocalStorage();
-//   const user = users.find((user) => {
-//     return user.loggedIn === true;
-//   }).shifts;
-//   const shift = user.find((shift) => {
-//     return shift.shiftDate === editDate.value;
-//   }).shift;
-//   user.splice(user.indexOf(shift), 1);
-//   sortUsers(users);
-//   localStorage.setItem("users", JSON.stringify(users));
-//   editShiftModal.setAttribute("aria-hidden", "true");
-//   editShiftInputContainer.setAttribute("aria-hidden", "true");
-// }
+function openDeleteModal(e) {
+  e.preventDefault();
+  deleteShiftModal.setAttribute("aria-hidden", "false");
+  editShiftInputContainer.setAttribute("aria-hidden", "true");
+  editBtnContainer.setAttribute("aria-hidden", "true");
+}
+
+function closeDeleteModal(e) {
+  e.preventDefault();
+  deleteShiftModal.setAttribute("aria-hidden", "true");
+  editShiftInputContainer.setAttribute("aria-hidden", "false");
+  editBtnContainer.setAttribute("aria-hidden", "false");
+}
+
+function deleteShift() {
+  const users = getFromLocalStorage();
+  const user = users.find((user) => {
+    return user.loggedIn === true;
+  }).shifts;
+  const userIndex = user.findIndex((shift) => {
+    return shift.shiftName === editShiftName.value;
+  });
+  user.splice(userIndex, 1);
+  localStorage.setItem("users", JSON.stringify(users));
+  monthlyProfit();
+  deleteShiftModal.setAttribute("aria-hidden", "true");
+  editShiftInputContainer.setAttribute("aria-hidden", "false");
+  editBtnContainer.setAttribute("aria-hidden", "false");
+  setTimeout(() => {
+    window.location.reload();
+  }, 900);
+}
 
 // display Table
 
@@ -226,7 +258,48 @@ function displayTable() {
   noShifts.setAttribute("aria-hidden", "true");
 }
 
+// Search shifts
+
+function checkForSearchBtn() {
+  if (openSearchBtn) {
+    openSearchBtn.addEventListener("click", openSearchSection);
+  } else {
+    return false;
+  }
+}
+
+function checkForSearchSection() {
+  if (searchSection) {
+    closeSearchBtn.addEventListener("click", closeSearchSection);
+    searchShiftsBtn.addEventListener("click", searchShiftsByDate);
+  } else {
+    return false;
+  }
+}
+
+function openSearchSection() {
+  searchSection.setAttribute("aria-hidden", "false");
+  tableSection.setAttribute("aria-hidden", "true");
+  noShifts.setAttribute("aria-hidden", "true");
+  addShiftHomepageForm.setAttribute("aria-hidden", "true");
+  openSearchBtn.setAttribute("aria-hidden", "true");
+}
+
+function closeSearchSection() {
+  searchSection.setAttribute("aria-hidden", "true");
+  tableSection.setAttribute("aria-hidden", "false");
+  noShifts.setAttribute("aria-hidden", "true");
+  addShiftHomepageForm.setAttribute("aria-hidden", "false");
+  openSearchBtn.setAttribute("aria-hidden", "false");
+}
+
+function searchShiftsByDate() {}
+
 window.addEventListener("load", checkForModalOpened);
+
+window.addEventListener("load", checkForSearchBtn);
+
+window.addEventListener("load", checkForSearchSection);
 
 export {
   logUserOut,

@@ -971,6 +971,10 @@ main p a:hover {
   width: 100%;
 }
 
+.add-shift__homepage[aria-hidden="true"] {
+  display: none;
+}
+
 .search-section {
   width: 100%;
   align-items: center;
@@ -1251,6 +1255,8 @@ textarea:hover {
   right: 2rem;
   top: 2rem;
   cursor: pointer;
+  background-color: var(--btn-background__color);
+  padding: 0.2rem;
 }
 
 .shift-details__modal[aria-hidden="true"] {
@@ -1258,7 +1264,11 @@ textarea:hover {
 }
 
 .user-data__container .delete-shift__button {
-  background-color: red;
+  background-color: hsl(0, 100%, 50%);
+}
+
+.user-data__container .confirm-delete__shift--btn {
+  background-color: hsl(0, 100%, 50%);
 }
 
 .form-container__edit--shift[aria-hidden="true"] {
@@ -1269,7 +1279,11 @@ textarea:hover {
   text-align: center;
 }
 
-.confirm-delete__text[aria-hidden="true"] {
+.delete-container[aria-hidden="true"] {
+  display: none;
+}
+
+.edit-buttons__container[aria-hidden="true"] {
   display: none;
 }
 
