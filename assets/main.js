@@ -18,8 +18,9 @@ import {
   personalPages,
   logUserOut,
   checkIfUserHasShifts,
+  tableSection,
 } from "./modulesJS/homepage.js";
-import { addShift, addShiftForm } from "./modulesJS/addShift.js";
+import { addShift, addShiftForm, monthlyProfit } from "./modulesJS/addShift.js";
 
 window.addEventListener("load", loadingModal);
 window.addEventListener("DOMContentLoaded", localStorageColorTheme);
@@ -157,3 +158,17 @@ function checkAddShiftForm() {
 }
 
 window.addEventListener("DOMContentLoaded", checkAddShiftForm);
+
+// monthly profit
+
+// check for table
+
+function checkMonthlyProfit() {
+  if (tableSection) {
+    monthlyProfit();
+  } else {
+    return;
+  }
+}
+
+window.addEventListener("DOMContentLoaded", checkMonthlyProfit);

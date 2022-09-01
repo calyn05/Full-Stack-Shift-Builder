@@ -857,7 +857,7 @@ main p a:hover {
   .mobile-nav__toggle {
     display: block;
     position: absolute;
-    z-index: 2000;
+    z-index: 900;
     right: 1rem;
     top: 2rem;
     background: transparent;
@@ -1152,6 +1152,7 @@ table caption {
 
 .add-shift__main {
   height: fit-content;
+  transition: all 0.5s ease-in-out;
 }
 
 .add-workplace select {
@@ -1216,6 +1217,60 @@ textarea:hover {
     align-items: center;
     justify-content: space-between;
   }
+}
+
+.shift-added__text.show {
+  padding: 0.5rem;
+  text-align: center;
+  background-color: var(--secondary-btn__color);
+  color: hsl(0, 0%, 0%);
+  width: 50%;
+  align-self: center;
+  border-radius: 1vmin;
+  box-shadow: var(--box-shadow__main) 0 0 0.7rem 0.1rem;
+}
+
+.shift-details__modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: fit-content;
+  backdrop-filter: blur(10px);
+  background-color: var(--glass-effect__color);
+  z-index: 990;
+  transform: translate(-50%, -50%);
+}
+
+.edit-shift__comment--area > textarea {
+  text-align: center;
+}
+
+.close-modal__btn {
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  cursor: pointer;
+}
+
+.shift-details__modal[aria-hidden="true"] {
+  display: none;
+}
+
+.user-data__container .delete-shift__button {
+  background-color: red;
+}
+
+.form-container__edit--shift[aria-hidden="true"] {
+  display: none;
+}
+
+.edit-shift__form p {
+  text-align: center;
+}
+
+.confirm-delete__text[aria-hidden="true"] {
+  display: none;
 }
 
 /* Profile page */

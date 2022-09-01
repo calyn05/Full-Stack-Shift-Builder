@@ -25,6 +25,8 @@ function registerUser(e) {
     lastName: lastName.value,
     password: password.value,
     shifts: [],
+    mostProfitableMonth: {},
+    monthlyProfits: [],
   };
 
   users.push(user);

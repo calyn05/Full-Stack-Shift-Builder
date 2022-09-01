@@ -6,6 +6,7 @@ import {
   capitalizeUserName,
 } from "./login.js";
 import { getFromLocalStorage } from "./register.js";
+import { monthlyProfit } from "./addShift.js";
 
 const userNameText = document.getElementById("homepage-username");
 const personalPages = [
@@ -20,6 +21,27 @@ const searchOptions = document.getElementById("search-options");
 const searchByDateForm = document.getElementById("search-by-date");
 const tableSection = document.getElementById("table-section");
 const openSearchBtn = document.getElementById("open-search-btn");
+
+// edit shift
+
+const tbodyShifts = document.querySelectorAll("tbody tr");
+const editShiftModal = document.getElementById("edit-shift-modal");
+const closeEditShiftModal = document.getElementById("close-modal-btn");
+const editShiftForm = document.getElementById("edit-shift-form");
+const editShiftInputContainer = document.getElementById(
+  "edit-shift-input-container"
+);
+const editDate = document.getElementById("edit-shift__date");
+const editStartTime = document.getElementById("edit-shift__start-time");
+const editEndTime = document.getElementById("edit-shift__end-time");
+const editHourlyWage = document.getElementById("edit-hourly-wage");
+const editWorkplace = document.getElementById("edit-workplace");
+const editShiftName = document.getElementById("edit-shift-name");
+const editCommentArea = document.getElementById("edit-shift-notes");
+
+const confirmDeleteText = document.getElementById("confirm-delete-text");
+const updateShiftBtn = document.getElementById("update-shift-btn");
+const deleteShiftBtn = document.getElementById("delete-shift-btn");
 
 // Check if the user is logged in
 function checkIfLoggedIn() {
@@ -79,9 +101,13 @@ function checkIfUserHasShifts() {
 
 function addShiftsToTable(shifts) {
   const tableBody = document.getElementById("table-body");
-  shifts.forEach((shift) => {
-    const shiftRow = document.createElement("tr");
-    shiftRow.innerHTML = `
+  shifts
+    .sort((a, b) => {
+      return b.shiftAddTime - a.shiftAddTime;
+    })
+    .forEach((shift) => {
+      const shiftRow = document.createElement("tr");
+      shiftRow.innerHTML = `
     <td>${shift.shiftDate}</td>
     <td>${shift.shiftName}</td>
     <td>${shift.shiftStartTime}</td>
@@ -90,9 +116,107 @@ function addShiftsToTable(shifts) {
     <td>${shift.shiftWorkplace}</td>
     <td>${shift.shiftTotalProfit}</td>
     `;
-    tableBody.appendChild(shiftRow);
-  });
+      tableBody.appendChild(shiftRow);
+      shiftRow.addEventListener("click", (e) => {
+        // click event for every table row
+        e.preventDefault();
+        editDate.value = shift.shiftDate;
+        editStartTime.value = shift.shiftStartTime;
+        editEndTime.value = shift.shiftEndTime;
+        editHourlyWage.value = shift.shiftHourlyWage;
+        editWorkplace.value = shift.shiftWorkplace;
+        editShiftName.value = shift.shiftName;
+        editCommentArea.value = shift.shiftNotes;
+
+        editShiftModal.setAttribute("aria-hidden", "false");
+        editShiftInputContainer.setAttribute("aria-hidden", "false");
+      });
+    });
 }
+
+// update shift
+
+function updateShift(e) {
+  e.preventDefault();
+  const users = getFromLocalStorage();
+  const user = users.find((user) => {
+    return user.loggedIn === true;
+  }).shifts;
+  const userIndex = user.findIndex((shift) => {
+      return shift.shiftName === editShiftName.value;
+    }),
+    shift = {
+      shiftDate: editDate.value,
+      shiftYear: parseInt(editDate.value.split("-")[0]),
+      shiftMonth: parseInt(editDate.value.split("-")[1]),
+      shiftDay: parseInt(editDate.value.split("-")[2]),
+      shiftStartTime: editStartTime.value,
+      shiftEndTime: editEndTime.value,
+      shiftHourlyWage: parseFloat(editHourlyWage.value),
+      shiftWorkplace: editWorkplace.value,
+      shiftName: editShiftName.value,
+      shiftNotes: editCommentArea.value,
+      shiftTotalProfit: calculateUpdatedProfit(
+        editDate.value,
+        editStartTime.value,
+        editEndTime.value,
+        editHourlyWage.value
+      ),
+      shiftAddTime: Date.now(),
+    };
+  user[userIndex] = shift;
+  localStorage.setItem("users", JSON.stringify(users));
+  monthlyProfit();
+}
+
+function checkForModalOpened() {
+  if (editShiftModal) {
+    updateShiftBtn.addEventListener("click", updateShift);
+  } else {
+    return false;
+  }
+}
+
+function calculateUpdatedProfit() {
+  const startTime = new Date(editDate.value + " " + editStartTime.value);
+  let endTime = new Date(editDate.value + " " + editEndTime.value);
+  console.log(startTime);
+
+  const tomorrow = new Date(endTime);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  if (startTime.getTime() >= endTime.getTime()) {
+    const totalTime = tomorrow.getTime() - startTime.getTime();
+    const totalProfit =
+      (totalTime / (60 * 60 * 1000)) *
+      Math.round(editHourlyWage.value).toFixed(2);
+    return parseFloat(totalProfit.toFixed(2));
+  } else {
+    const difference = endTime.getTime() - startTime.getTime();
+    const totalProfit =
+      (difference / 1000 / 60 / 60) *
+      Math.round(editHourlyWage.value).toFixed(2);
+    return parseFloat(totalProfit.toFixed(2));
+  }
+}
+
+// Delete shift
+
+// function deleteShift(e) {
+//   e.preventDefault();
+//   const users = getFromLocalStorage();
+//   const user = users.find((user) => {
+//     return user.loggedIn === true;
+//   }).shifts;
+//   const shift = user.find((shift) => {
+//     return shift.shiftDate === editDate.value;
+//   }).shift;
+//   user.splice(user.indexOf(shift), 1);
+//   sortUsers(users);
+//   localStorage.setItem("users", JSON.stringify(users));
+//   editShiftModal.setAttribute("aria-hidden", "true");
+//   editShiftInputContainer.setAttribute("aria-hidden", "true");
+// }
 
 // display Table
 
@@ -102,4 +226,12 @@ function displayTable() {
   noShifts.setAttribute("aria-hidden", "true");
 }
 
-export { logUserOut, checkIfLoggedIn, personalPages, checkIfUserHasShifts };
+window.addEventListener("load", checkForModalOpened);
+
+export {
+  logUserOut,
+  checkIfLoggedIn,
+  personalPages,
+  checkIfUserHasShifts,
+  tableSection,
+};

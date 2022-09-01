@@ -3,6 +3,9 @@ import { getFromLocalStorage } from "./register.js";
 // add shift to user
 
 const addShiftForm = document.getElementById("add-shift__form");
+const addShiftText = document.getElementById("shift-added-text");
+const addShiftMainContainer = document.getElementById("add-shift-main");
+const tableDataProfitMonth = document.getElementById("highest-profit");
 
 function addShift(e) {
   e.preventDefault();
@@ -12,19 +15,35 @@ function addShift(e) {
   }).shifts;
   const shift = {
     shiftDate: document.getElementById("add-shift__date").value,
+    shiftYear: parseInt(
+      document.getElementById("add-shift__date").value.split("-")[0]
+    ),
+    shiftMonth: parseInt(
+      document.getElementById("add-shift__date").value.split("-")[1]
+    ),
+    shiftDay: parseInt(
+      document.getElementById("add-shift__date").value.split("-")[2]
+    ),
     shiftStartTime: document.getElementById("add-shift__start-time").value,
     shiftEndTime: document.getElementById("add-shift__end-time").value,
-    shiftHourlyWage: document.getElementById("hourly-wage").value,
+    shiftHourlyWage: parseFloat(document.getElementById("hourly-wage").value),
     shiftWorkplace: document.getElementById("workplace").value,
     shiftName: document.getElementById("shift-name").value,
     shiftNotes: document.getElementById("shift-notes").value,
     shiftTotalProfit: calculateTotalProfit(),
+    shiftAddTime: Date.now(),
   };
+  setTimeout(() => {
+    addShiftMainContainer.classList.add("screen-reader");
+  }, 500);
+  setTimeout(() => {
+    addShiftText.classList.remove("screen-reader");
+  }, 800);
   user.push(shift);
   localStorage.setItem("users", JSON.stringify(users));
-  //   setTimeout(() => {
-  //     window.location.href = "../pages/homepage.html";
-  //   }, 2000);
+  setTimeout(() => {
+    window.location.href = "../pages/homepage.html";
+  }, 2000);
 }
 
 function calculateTotalProfit() {
@@ -41,13 +60,85 @@ function calculateTotalProfit() {
 
   if (startTime.getTime() >= endTime.getTime()) {
     const totalTime = tomorrow.getTime() - startTime.getTime();
-    const totalProfit = (totalTime / (60 * 60 * 1000)) * hourlyWage;
-    return totalProfit;
+    const totalProfit =
+      (totalTime / (60 * 60 * 1000)) * Math.round(hourlyWage).toFixed(2);
+    return parseFloat(totalProfit.toFixed(2));
   } else {
     const difference = endTime.getTime() - startTime.getTime();
-    const totalProfit = (difference / 1000 / 60 / 60) * hourlyWage;
-    return totalProfit;
+    const totalProfit =
+      (difference / 1000 / 60 / 60) * Math.round(hourlyWage).toFixed(2);
+    return parseFloat(totalProfit.toFixed(2));
   }
 }
 
-export { addShift, addShiftForm };
+function monthlyProfit() {
+  const users = getFromLocalStorage();
+  const user = users.find((user) => {
+    return user.loggedIn === true;
+  });
+  const shifts = user.shifts;
+  const profitPerMonth = {
+    year: [],
+    month: [],
+    profit: [],
+  };
+  for (let i = 0; i < shifts.length; i++) {
+    if (
+      profitPerMonth.year.includes(shifts[i].shiftYear) &&
+      profitPerMonth.month.includes(shifts[i].shiftMonth)
+    ) {
+      if (profitPerMonth.month.includes(shifts[i].shiftMonth)) {
+        profitPerMonth.profit[
+          profitPerMonth.year.indexOf(shifts[i].shiftYear)
+        ].push(shifts[i].shiftTotalProfit);
+      } else {
+        profitPerMonth.month.push(shifts[i].shiftMonth);
+        profitPerMonth.profit[
+          profitPerMonth.year.indexOf(shifts[i].shiftYear)
+        ].push(shifts[i].shiftTotalProfit);
+      }
+    } else {
+      profitPerMonth.year.push(shifts[i].shiftYear);
+      profitPerMonth.month.push(shifts[i].shiftMonth);
+      profitPerMonth.profit.push([shifts[i].shiftTotalProfit]);
+    }
+  }
+
+  let highestProfit = 0;
+  let highestProfitYear = 0;
+  let highestProfitMonth = 0;
+
+  profitPerMonth.profit.forEach((profit, index) => {
+    let totalProfit = 0;
+    profit.forEach((profit) => {
+      totalProfit += profit;
+    });
+    if (totalProfit > highestProfit) {
+      highestProfit = totalProfit.toFixed(2);
+      highestProfitYear = profitPerMonth.year[index];
+      highestProfitMonth = profitPerMonth.month[index];
+    }
+  });
+
+  user.mostProfitableMonth = {
+    year: highestProfitYear,
+    month: highestProfitMonth,
+    profit: highestProfit,
+  };
+
+  user.monthlyProfits = {
+    month: profitPerMonth.month,
+    profit: profitPerMonth.profit,
+  };
+  localStorage.setItem("users", JSON.stringify(users));
+
+  const dateString = highestProfitYear + "-" + highestProfitMonth;
+  const date = new Date(dateString);
+  const month = date.toLocaleString("default", { month: "long" });
+
+  tableDataProfitMonth.innerHTML = `
+    ${highestProfitYear} - ${month} - ${highestProfit}
+    `;
+}
+
+export { addShift, addShiftForm, monthlyProfit };

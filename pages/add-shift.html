@@ -72,6 +72,7 @@
 
     <main
       class="add-shift__main main-homepage user-data__container flex-column"
+      id="add-shift-main"
     >
       <form class="add-shift__data flex-column" id="add-shift__form">
         <div class="add-date__select flex-column">
@@ -112,6 +113,13 @@
         <button class="add-shift__button" type="submit">Add shift</button>
       </form>
     </main>
+
+    <h2
+      class="screen-reader shift-added__text show fw-700 fs-600"
+      id="shift-added-text"
+    >
+      Shift Added
+    </h2>
 
     <div aria-modal="true" aria-hidden="true" class="loading-circle__modal">
       <div class="loading-circle">

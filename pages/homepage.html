@@ -163,7 +163,7 @@
           <tfoot class="fw-700">
             <tr>
               <td colspan="2">Highest earnings month</td>
-              <td colspan="5"></td>
+              <td colspan="5" id="highest-profit"></td>
             </tr>
           </tfoot>
         </table>
@@ -178,6 +178,90 @@
     >
       Search shift
     </button>
+
+    <!-- View shift details -->
+
+    <div
+      aria-modal="true"
+      class="shift-details__modal user-data__container"
+      id="edit-shift-modal"
+      aria-hidden="true"
+    >
+      <img
+        class="close-modal__btn"
+        id="close-modal-btn"
+        src="../assets/images/icon-close.svg"
+        alt=""
+      />
+
+      <form
+        class="add-shift__data edit-shift__form flex-column"
+        id="edit-shift-form"
+      >
+        <div
+          class="form-container__edit--shift flex-column"
+          aria-hidden="false"
+          id="edit-shift-input-container"
+        >
+          <div class="add-date__select flex-column">
+            <label for="date">Date</label>
+            <input type="date" id="edit-shift__date" />
+          </div>
+          <div class="add-shift__time flex-column">
+            <label for="start time">Start time</label>
+            <input type="time" id="edit-shift__start-time" />
+            <label for="end time">End time</label>
+            <input type="time" id="edit-shift__end-time" />
+          </div>
+          <div class="add-wage flex-column">
+            <label for="hourly wage">Hourly wage</label>
+            <input type="text" name="hourly wage" id="edit-hourly-wage" />
+          </div>
+          <div class="workplace-input__container flex-column">
+            <label for="workplace">Workplace</label>
+            <input type="text" name="workplace" id="edit-workplace" />
+          </div>
+          <div class="add-shift__name flex-column">
+            <label for="shift name">Unique name</label>
+            <input type="text" name="shift name" id="edit-shift-name" />
+          </div>
+          <div class="edit-shift__comment--area flex-column">
+            <label for="description">Notes</label>
+            <textarea
+              name="description"
+              id="edit-shift-notes"
+              cols="30"
+              rows="10"
+            ></textarea>
+          </div>
+        </div>
+
+        <p
+          class="confirm-delete__text fs-secondary__heading"
+          id="confirm-delete-text"
+          aria-hidden="true"
+        >
+          Deleted data can not be recovered! Delete?
+        </p>
+
+        <div class="edit-buttons__container flex">
+          <button
+            class="update-shift__button"
+            type="button"
+            id="update-shift-btn"
+          >
+            Update
+          </button>
+          <button
+            class="delete-shift__button"
+            type="submit"
+            id="delete-shift-btn"
+          >
+            Delete
+          </button>
+        </div>
+      </form>
+    </div>
 
     <div aria-modal="true" aria-hidden="true" class="loading-circle__modal">
       <div class="loading-circle">
