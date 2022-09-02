@@ -1,11 +1,48 @@
 import { getFromLocalStorage } from "./register.js";
 
+const profileImageAddShift = document.getElementById("profile-image-add-shift");
+
 // add shift to user
 
 const addShiftForm = document.getElementById("add-shift__form");
+const addShiftBtn = document.getElementById("ad-shift-submit-btn");
 const addShiftText = document.getElementById("shift-added-text");
 const addShiftMainContainer = document.getElementById("add-shift-main");
 const tableDataProfitMonth = document.getElementById("highest-profit");
+
+const date = document.getElementById("add-shift__date");
+const startTime = document.getElementById("add-shift__start-time");
+const endTime = document.getElementById("add-shift__end-time");
+
+function showProfileImageAddShift() {
+  const users = getFromLocalStorage();
+  const userLoggedIn = users.find((user) => {
+    return user.loggedIn === true;
+  });
+  profileImageAddShift.src = userLoggedIn.image;
+}
+
+// Verify dates are not already in use
+
+function checkDateAndTime() {
+  const users = getFromLocalStorage();
+  const user = users.find((user) => {
+    return user.loggedIn === true;
+  });
+  const userShifts = user.shifts;
+  const shiftsDate = userShifts.find((shift) => {
+    return shift.shiftDate === date;
+  });
+  console.log(shiftsDate);
+}
+window.addEventListener("load", () => {
+  if (addShiftForm) {
+    addShiftForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      checkDateAndTime();
+    });
+  }
+});
 
 function addShift(e) {
   e.preventDefault();
@@ -136,9 +173,20 @@ function monthlyProfit() {
   const date = new Date(dateString);
   const month = date.toLocaleString("default", { month: "long" });
 
+  const currency = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(highestProfit);
+
   tableDataProfitMonth.innerHTML = `
-    ${highestProfitYear} - ${month} - ${highestProfit}
+  ${month} - ${highestProfitYear} earning ${currency}
     `;
 }
 
-export { addShift, addShiftForm, monthlyProfit };
+export {
+  addShift,
+  addShiftForm,
+  monthlyProfit,
+  profileImageAddShift,
+  showProfileImageAddShift,
+};

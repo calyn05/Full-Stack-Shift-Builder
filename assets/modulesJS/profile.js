@@ -23,6 +23,7 @@ const profilePassContainer = document.getElementById(
 // Profile image upload variables
 
 const profileImage = document.getElementById("profile-image");
+const profileImageNav = document.getElementById("profile-image-nav");
 const profileImageUpload = document.getElementById("profile-image-upload");
 const openImageUpload = document.getElementById("open-image-upload");
 
@@ -75,6 +76,7 @@ function confirmInputVisible() {
 
 function openImageUploadInput() {
   profileImageUpload.setAttribute("aria-hidden", "false");
+  openImageUpload.setAttribute("aria-hidden", "true");
 }
 
 function checkForChangeBtn() {
@@ -95,4 +97,7 @@ export {
   confirmInputVisible,
   updatePassword,
   updateProfileForm,
+  profileImage,
+  profileImageNav,
+  profileImageUpload,
 };

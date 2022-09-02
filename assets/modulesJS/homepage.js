@@ -8,6 +8,8 @@ import {
 import { getFromLocalStorage } from "./register.js";
 import { monthlyProfit } from "./addShift.js";
 
+const homepageProfileImage = document.getElementById("homepage-profile-image");
+
 const userNameText = document.getElementById("homepage-username");
 const personalPages = [
   "/pages/homepage.html",
@@ -51,6 +53,16 @@ const confirmDeleteBtn = document.getElementById("confirm-delete__shift--btn");
 const cancelDeleteBtn = document.getElementById("cancel-delete-btn");
 const deleteShiftModal = document.getElementById("delete-shift-modal");
 const editBtnContainer = document.getElementById("edit-buttons-container");
+
+function showHomepageProfileImage() {
+  const users = getFromLocalStorage();
+  const user = users.find((user) => {
+    return user.loggedIn === true;
+  });
+  if (user) {
+    homepageProfileImage.src = user.image;
+  }
+}
 
 // Check if the user is logged in
 
@@ -230,7 +242,6 @@ function openDeleteModal(e) {
   editBtnContainer.setAttribute("aria-hidden", "true");
   openSearchBtn.setAttribute("aria-hidden", "true");
   addShiftHomepageForm.setAttribute("aria-hidden", "true");
-  openSearchBtn.setAttribute("aria-hidden", "true");
   searchSection.setAttribute("aria-hidden", "true");
   closeEditShiftModal.setAttribute("aria-hidden", "true");
 }
@@ -242,9 +253,9 @@ function closeDeleteModal(e) {
   editBtnContainer.setAttribute("aria-hidden", "false");
   openSearchBtn.setAttribute("aria-hidden", "false");
   addShiftHomepageForm.setAttribute("aria-hidden", "false");
-  openSearchBtn.setAttribute("aria-hidden", "false");
   searchSection.setAttribute("aria-hidden", "false");
   closeEditShiftModal.setAttribute("aria-hidden", "false");
+  searchSection.setAttribute("aria-hidden", "true");
 }
 
 function deleteShift() {
@@ -445,4 +456,6 @@ export {
   personalPages,
   checkIfUserHasShifts,
   tableSection,
+  showHomepageProfileImage,
+  homepageProfileImage,
 };

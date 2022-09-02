@@ -19,8 +19,22 @@ import {
   logUserOut,
   checkIfUserHasShifts,
   tableSection,
+  showHomepageProfileImage,
+  homepageProfileImage,
 } from "./modulesJS/homepage.js";
-import { addShift, addShiftForm, monthlyProfit } from "./modulesJS/addShift.js";
+import {
+  addShift,
+  addShiftForm,
+  monthlyProfit,
+  showProfileImageAddShift,
+  profileImageAddShift,
+} from "./modulesJS/addShift.js";
+import {
+  profileImageUpload,
+  profileImage,
+  imageToBase64,
+  showProfileImage,
+} from "./modulesJS/uploadPhoto.js";
 
 window.addEventListener("load", loadingModal);
 window.addEventListener("DOMContentLoaded", localStorageColorTheme);
@@ -159,8 +173,6 @@ function checkAddShiftForm() {
 
 window.addEventListener("DOMContentLoaded", checkAddShiftForm);
 
-// monthly profit
-
 // check for table
 
 function checkMonthlyProfit() {
@@ -172,3 +184,42 @@ function checkMonthlyProfit() {
 }
 
 window.addEventListener("DOMContentLoaded", checkMonthlyProfit);
+
+// Upload profile image
+
+function checkProfileImageUpload() {
+  if (profileImageUpload) {
+    profileImageUpload.addEventListener("change", imageToBase64);
+  } else {
+    return;
+  }
+}
+
+function checkForProfileImage() {
+  if (profileImage) {
+    window.onload = showProfileImage();
+  } else {
+    return;
+  }
+}
+
+function checkForAddShiftProfileImg() {
+  if (profileImageAddShift) {
+    window.onload = showProfileImageAddShift();
+  } else {
+    return;
+  }
+}
+
+function checkForHomepageProfileImg() {
+  if (homepageProfileImage) {
+    window.onload = showHomepageProfileImage();
+  } else {
+    return;
+  }
+}
+
+window.addEventListener("DOMContentLoaded", checkProfileImageUpload);
+window.addEventListener("DOMContentLoaded", checkForProfileImage);
+window.addEventListener("DOMContentLoaded", checkForAddShiftProfileImg);
+window.addEventListener("DOMContentLoaded", checkForHomepageProfileImg);
