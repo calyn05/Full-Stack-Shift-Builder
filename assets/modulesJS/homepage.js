@@ -401,23 +401,36 @@ function searchShiftsByDate(e) {
 // display shifts
 
 function displayShifts(filteredShifts) {
-  console.log(filteredShifts);
   tableSection.setAttribute("aria-hidden", "false");
   noShifts.setAttribute("aria-hidden", "true");
-  const shifts = filteredShifts.map((shift) => {
-    return `
-    <tr>
-      <td>${shift.shiftDate}</td>
-      <td>${shift.shiftName}</td>
-      <td>${shift.shiftStartTime}</td>
-      <td>${shift.shiftEndTime}</td>
-      <td>${shift.shiftHourlyWage}</td>
-      <td>${shift.shiftWorkplace}</td>
-      <td>${shift.shiftTotalProfit}</td>
-    </tr>
+  tableBody.innerHTML = "";
+  filteredShifts.forEach((shift) => {
+    const tableRow = document.createElement("tr");
+    tableRow.innerHTML = `
+    <td>${shift.shiftDate}</td>
+    <td>${shift.shiftName}</td>
+    <td>${shift.shiftStartTime}</td>
+    <td>${shift.shiftEndTime}</td>
+    <td>${shift.shiftHourlyWage}</td>
+    <td>${shift.shiftWorkplace}</td>
+    <td>${shift.shiftTotalProfit}</td>
+
     `;
-  });
-  tableBody.innerHTML = shifts.join("");
+    tableBody.appendChild(tableRow);
+    searchSection.setAttribute("aria-hidden", "true");
+    openSearchBtn.setAttribute("aria-hidden", "false");
+    addShiftHomepageForm.setAttribute("aria-hidden", "false");
+  }),
+    tableBody.addEventListener("click", (e) => {
+      if (e.target.nodeName === "TD") {
+        const shift = filteredShifts.find((shift) => {
+          return (
+            shift.shiftName === e.target.parentElement.children[1].textContent
+          );
+        });
+        displayShiftInModal(shift);
+      }
+    });
 }
 
 window.addEventListener("load", checkForModalOpened);
