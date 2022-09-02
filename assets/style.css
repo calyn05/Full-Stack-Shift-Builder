@@ -474,6 +474,14 @@ main.login-page {
   background-color: var(--btn-background__color);
 }
 
+.login-data__container[aria-hidden="true"] {
+  display: none;
+}
+
+.reset-container[aria-hidden="true"] {
+  display: none;
+}
+
 /* Loading circle  - Modal */
 
 .loading-circle__modal {
@@ -857,7 +865,7 @@ main p a:hover {
   .mobile-nav__toggle {
     display: block;
     position: absolute;
-    z-index: 900;
+    z-index: 1001;
     right: 1rem;
     top: 2rem;
     background: transparent;
@@ -1255,7 +1263,7 @@ textarea:hover {
   height: fit-content;
   backdrop-filter: blur(10px);
   background-color: var(--glass-effect__color);
-  z-index: 990;
+  z-index: 2000;
   transform: translate(-50%, -50%);
 }
 
@@ -1320,6 +1328,10 @@ input {
 
 input[aria-hidden="true"] {
   display: none;
+}
+
+.profile-image__container > label {
+  text-align: center;
 }
 
 .profile-image__container > img {

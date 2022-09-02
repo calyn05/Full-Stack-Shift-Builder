@@ -76,19 +76,25 @@
       </h2>
 
       <form class="profile-image__container flex-column">
-        <label for="profile picture">Profile picture</label>
+        <label for="profile picture">Profile image</label>
         <input
           accept="image/*"
           type="file"
-          id="image-input"
+          id="profile-image-upload"
           aria-hidden="true"
         />
         <img
           src="../assets/images/tablet-background.jpg"
           alt=""
-          id="profile-img"
+          id="profile-image"
         />
-        <button type="button" aria-controls="image-input">Change</button>
+        <button
+          type="button"
+          aria-controls="image-input"
+          id="open-image-upload"
+        >
+          Change
+        </button>
       </form>
 
       <form class="update-form flex-column" id="update-form">

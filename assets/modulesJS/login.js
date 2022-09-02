@@ -11,6 +11,25 @@ const loginEmailLabel = document.getElementById("login-email__label");
 const loginPasswordLabel = document.getElementById("login-password__label");
 const loginTime = 60 * 60 * 1000;
 
+// Reset password
+const resetPasswordContainer = document.getElementById("reset-password-modal");
+const resetPasswordForm = document.getElementById("reset-password-form");
+const resetPasswordEmail = document.getElementById("reset-email");
+const resetPasswordEmailLabel = document.getElementById("reset-email__label");
+const resetNewPassword = document.getElementById("reset-password");
+const resetNewPasswordLabel = document.getElementById("reset-password__label");
+const resetNewPasswordConfirm = document.getElementById(
+  "confirm-reset-password"
+);
+const resetNewPasswordConfirmLabel = document.getElementById(
+  "confirm-reset-password-label"
+);
+const resetHeadingText = document.getElementById("reset-password-head-text");
+const resetParagraph = document.getElementById("reset-password-paragraph");
+const openResetForm = document.getElementById("reset-password-btn");
+const loginSection = document.getElementById("login-data-container");
+const cancelReset = document.getElementById("cancel-reset");
+
 function loginUser(e) {
   e.preventDefault();
   const users = getFromLocalStorage();
@@ -82,7 +101,8 @@ function sortUsers(users) {
     .reverse();
 }
 
-// Using local storage to store users, only one user can be logged in at a time
+// Using local storage to store users,
+// only one user can be logged in at a time
 
 function loggedOut(users) {
   if (users.length < 1) {
@@ -104,6 +124,74 @@ function capitalizeUserName(user) {
     user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1);
   return user;
 }
+
+function closeReset(e) {
+  e.preventDefault();
+  resetPasswordContainer.setAttribute("aria-hidden", "true");
+  loginSection.setAttribute("aria-hidden", "false");
+}
+
+function openReset(e) {
+  e.preventDefault();
+  if (openResetForm) {
+    resetPasswordContainer.setAttribute("aria-hidden", "false");
+    loginSection.setAttribute("aria-hidden", "true");
+  }
+}
+
+function resetPassword(e) {
+  e.preventDefault();
+  const users = getFromLocalStorage();
+  const user = users.find((user) => {
+    return user.email === resetPasswordEmail.value;
+  });
+  if (user) {
+    resetPasswordEmailLabel.innerText = "Email";
+    resetNewPasswordLabel.innerText = "New password";
+    resetNewPasswordConfirmLabel.innerText = "Confirm new password";
+    if (resetNewPassword.value === resetNewPasswordConfirm.value) {
+      resetPasswordEmailLabel.innerText = "Email";
+      resetNewPasswordLabel.innerText = "New password";
+      resetNewPasswordConfirmLabel.innerText = "Confirm new password";
+      users.find((user) => {
+        return user.email === resetPasswordEmail.value;
+      }).password = resetNewPassword.value;
+      localStorage.setItem("users", JSON.stringify(users));
+      resetHeadingText.innerText = "Reset completed!";
+      resetParagraph.style.display = "none";
+      setTimeout(() => {
+        window.location.reload();
+        resetPasswordContainer.setAttribute("aria-hidden", "true");
+      }, 2000);
+    } else {
+      resetNewPasswordConfirmLabel.innerText = "Passwords do not match !";
+      resetNewPasswordConfirmLabel.style.color = "red";
+      setTimeout(() => {
+        resetNewPasswordConfirmLabel.innerText = "Confirm password";
+        resetNewPasswordConfirmLabel.style.color = "var(--main-text__color)";
+      }, 3000);
+    }
+  } else {
+    resetPasswordEmailLabel.innerText = "Email not found !";
+    resetPasswordEmailLabel.style.color = "red";
+    setTimeout(() => {
+      resetPasswordEmailLabel.innerText = "Email";
+      resetPasswordEmailLabel.style.color = "var(--main-text__color)";
+    }, 3000);
+  }
+}
+
+window.onload = function () {
+  if (openResetForm) {
+    openResetForm.addEventListener("click", openReset);
+  }
+  if (resetPasswordForm) {
+    resetPasswordForm.addEventListener("submit", resetPassword);
+  }
+  if (cancelReset) {
+    cancelReset.addEventListener("click", closeReset);
+  }
+};
 
 export {
   loginUser,

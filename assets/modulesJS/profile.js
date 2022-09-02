@@ -12,6 +12,20 @@ const updateConfirmPassword = document.getElementById(
   "confirm-update__password"
 );
 
+// Confirm password field visibility
+const confirmPasswordField = document.getElementById(
+  "confirm-update-password-container"
+);
+const profilePassContainer = document.getElementById(
+  "profile-password-container"
+);
+
+// Profile image upload variables
+
+const profileImage = document.getElementById("profile-image");
+const profileImageUpload = document.getElementById("profile-image-upload");
+const openImageUpload = document.getElementById("open-image-upload");
+
 function getUserFromLocalStorage() {
   const users = getFromLocalStorage();
   const userLoggedIn = users.find((user) => {
@@ -43,14 +57,6 @@ function getUserFromLocalStorage() {
   }
 }
 
-// Confirm password field visibility
-const confirmPasswordField = document.getElementById(
-  "confirm-update-password-container"
-);
-const profilePassContainer = document.getElementById(
-  "profile-password-container"
-);
-
 function confirmInputVisible() {
   window.addEventListener("click", (e) => {
     if (
@@ -66,6 +72,23 @@ function confirmInputVisible() {
     }
   });
 }
+
+function openImageUploadInput() {
+  profileImageUpload.setAttribute("aria-hidden", "false");
+}
+
+function checkForChangeBtn() {
+  if (openImageUpload) {
+    openImageUpload.addEventListener("click", (e) => {
+      e.preventDefault();
+      openImageUploadInput();
+    });
+  } else {
+    return;
+  }
+}
+
+window.addEventListener("load", checkForChangeBtn);
 
 export {
   getUserFromLocalStorage,
