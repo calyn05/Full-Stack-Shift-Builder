@@ -19,10 +19,14 @@ const searchSection = document.getElementById("search-section");
 const searchByNameForm = document.getElementById("search-by-name");
 const searchOptions = document.getElementById("search-options");
 const searchByDateForm = document.getElementById("search-by-date");
+const searchFromDate = document.getElementById("from-date");
+const searchToDate = document.getElementById("to-date");
 const tableSection = document.getElementById("table-section");
+const tableBody = document.getElementById("table-body");
 const openSearchBtn = document.getElementById("open-search-btn");
 const closeSearchBtn = document.getElementById("cancel-search-button");
 const searchShiftsBtn = document.getElementById("search-button");
+const searchByName = document.getElementById("search-input-name");
 
 // edit shift
 
@@ -106,7 +110,6 @@ function checkIfUserHasShifts() {
 // Add shifts to table
 
 function addShiftsToTable(shifts) {
-  const tableBody = document.getElementById("table-body");
   shifts
     .sort((a, b) => {
       return b.shiftAddTime - a.shiftAddTime;
@@ -173,6 +176,9 @@ function updateShift(e) {
   user[userIndex] = shift;
   localStorage.setItem("users", JSON.stringify(users));
   monthlyProfit();
+  setTimeout(() => {
+    window.location.reload();
+  }, 1000);
 }
 
 function checkForModalOpened() {
@@ -222,6 +228,11 @@ function openDeleteModal(e) {
   deleteShiftModal.setAttribute("aria-hidden", "false");
   editShiftInputContainer.setAttribute("aria-hidden", "true");
   editBtnContainer.setAttribute("aria-hidden", "true");
+  openSearchBtn.setAttribute("aria-hidden", "true");
+  addShiftHomepageForm.setAttribute("aria-hidden", "true");
+  openSearchBtn.setAttribute("aria-hidden", "true");
+  searchSection.setAttribute("aria-hidden", "true");
+  closeEditShiftModal.setAttribute("aria-hidden", "true");
 }
 
 function closeDeleteModal(e) {
@@ -229,6 +240,11 @@ function closeDeleteModal(e) {
   deleteShiftModal.setAttribute("aria-hidden", "true");
   editShiftInputContainer.setAttribute("aria-hidden", "false");
   editBtnContainer.setAttribute("aria-hidden", "false");
+  openSearchBtn.setAttribute("aria-hidden", "false");
+  addShiftHomepageForm.setAttribute("aria-hidden", "false");
+  openSearchBtn.setAttribute("aria-hidden", "false");
+  searchSection.setAttribute("aria-hidden", "false");
+  closeEditShiftModal.setAttribute("aria-hidden", "false");
 }
 
 function deleteShift() {
@@ -260,6 +276,72 @@ function displayTable() {
 
 // Search shifts
 
+function searchShiftsByName(e) {
+  e.preventDefault();
+  const options = [];
+  const users = getFromLocalStorage();
+  const user = users.find((user) => {
+    return user.loggedIn === true;
+  }).shifts;
+  const filteredShifts = user.filter((shift) => {
+      return shift.shiftName
+        .toLowerCase()
+        .includes(searchByName.value.toLowerCase());
+    }),
+    filteredShiftsLength = filteredShifts.length;
+
+  if (filteredShiftsLength > 0) {
+    searchOptions.setAttribute("aria-hidden", "false");
+    filteredShifts.forEach((shift) => {
+      options.push(shift.shiftName);
+      if (options.length < 2) {
+        console.log(options);
+        document.createElement("p");
+        searchOptions.innerHTML = `<p>${options[0]}</p>`;
+        console.log(options);
+      } else {
+        console.log(options);
+        for (let i = 1; i < options.length; i++) {
+          searchOptions.innerHTML += `<p>${options[i]}</p>`;
+        }
+      }
+      if (searchByName.value < 1) {
+        searchOptions.setAttribute("aria-hidden", "true");
+        options.splice(0, options.length);
+      }
+    });
+  }
+  console.log(options);
+  console.log(filteredShifts);
+  options.forEach((option) => {
+    console.log(option);
+    const optionP = document.querySelectorAll("p");
+    optionP.forEach((p) => {
+      p.addEventListener("click", () => {
+        searchByName.value = option;
+        searchOptions.setAttribute("aria-hidden", "true");
+        filteredShifts.forEach((shift) => {
+          if (shift.shiftName === option) {
+            displayShiftInModal(shift);
+          }
+        });
+      });
+    });
+  });
+}
+
+function displayShiftInModal(shift) {
+  editShiftModal.setAttribute("aria-hidden", "false");
+  editDate.value = shift.shiftDate;
+  editStartTime.value = shift.shiftStartTime;
+  editEndTime.value = shift.shiftEndTime;
+  editHourlyWage.value = shift.shiftHourlyWage;
+  editWorkplace.value = shift.shiftWorkplace;
+  editShiftName.value = shift.shiftName;
+  editCommentArea.value = shift.shiftNotes;
+  checkForModalOpened();
+}
+
 function checkForSearchBtn() {
   if (openSearchBtn) {
     openSearchBtn.addEventListener("click", openSearchSection);
@@ -272,6 +354,7 @@ function checkForSearchSection() {
   if (searchSection) {
     closeSearchBtn.addEventListener("click", closeSearchSection);
     searchShiftsBtn.addEventListener("click", searchShiftsByDate);
+    searchByName.addEventListener("keyup", searchShiftsByName);
   } else {
     return false;
   }
@@ -293,7 +376,49 @@ function closeSearchSection() {
   openSearchBtn.setAttribute("aria-hidden", "false");
 }
 
-function searchShiftsByDate() {}
+// search shifts from date to date
+
+function searchShiftsByDate(e) {
+  e.preventDefault();
+  const users = getFromLocalStorage();
+  const user = users.find((user) => {
+    return user.loggedIn === true;
+  }).shifts;
+  const filteredShifts = user.filter((shift) => {
+    return (
+      shift.shiftDate >= searchFromDate.value &&
+      shift.shiftDate <= searchToDate.value
+    );
+  });
+  if (filteredShifts.length > 0) {
+    displayShifts(filteredShifts);
+  } else {
+    tableSection.setAttribute("aria-hidden", "true");
+    noShifts.setAttribute("aria-hidden", "false");
+  }
+}
+
+// display shifts
+
+function displayShifts(filteredShifts) {
+  console.log(filteredShifts);
+  tableSection.setAttribute("aria-hidden", "false");
+  noShifts.setAttribute("aria-hidden", "true");
+  const shifts = filteredShifts.map((shift) => {
+    return `
+    <tr>
+      <td>${shift.shiftDate}</td>
+      <td>${shift.shiftName}</td>
+      <td>${shift.shiftStartTime}</td>
+      <td>${shift.shiftEndTime}</td>
+      <td>${shift.shiftHourlyWage}</td>
+      <td>${shift.shiftWorkplace}</td>
+      <td>${shift.shiftTotalProfit}</td>
+    </tr>
+    `;
+  });
+  tableBody.innerHTML = shifts.join("");
+}
 
 window.addEventListener("load", checkForModalOpened);
 

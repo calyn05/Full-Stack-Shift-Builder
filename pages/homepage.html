@@ -103,20 +103,14 @@
               type="text"
               placeholder="Search shift by name..."
               class="search-input"
-              id="search-input"
+              id="search-input-name"
             />
-            <select
+            <div
+              class="search-results__container flex-column"
               aria-hidden="true"
               name="search-options"
               id="search-options"
-              autofocus
-            >
-              <option value=""></option>
-              <option value="">Search by</option>
-              <option value="">Name</option>
-              <option value="">Date</option>
-              <option value="">Location</option>
-            </select>
+            ></div>
           </div>
         </form>
 
@@ -137,8 +131,16 @@
             <label for="to-date">To</label>
             <input type="date" id="to-date" />
           </div>
-          <button type="submit" id="search-button">Search</button>
-          <button type="button" id="cancel-search-button">Cancel</button>
+          <button class="submit-search__btn" type="submit" id="search-button">
+            Search
+          </button>
+          <button
+            class="cancel-search__btn"
+            type="button"
+            id="cancel-search-button"
+          >
+            Cancel
+          </button>
         </form>
       </section>
 
@@ -194,7 +196,8 @@
         class="close-modal__btn"
         id="close-modal-btn"
         src="../assets/images/icon-close.svg"
-        alt=""
+        alt="close"
+        aria-hidden="false"
       />
 
       <form

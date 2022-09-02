@@ -1018,27 +1018,31 @@ main p a:hover {
 }
 
 .search-container__input {
+  position: relative;
   width: 100%;
 }
 
-.search-container__input form {
+.search-results__container {
+  position: absolute;
   width: 100%;
+  top: 110%;
+  border-radius: 2vmin;
+  background-color: var(--section-background__color);
+  text-align: center;
 }
 
-.search-container__input select {
-  appearance: none;
-  border: 0;
-  border-radius: 1vmin;
-  background-color: transparent;
-  margin-top: -1rem;
+.search-results__container > p {
+  padding: 0.3rem;
+  cursor: pointer;
 }
 
-.search-container__input select:focus,
-.search-container__input select:focus-visible {
-  outline: none;
+.search-results__container > p:hover {
+  background-color: var(--secondary-btn__color);
+  color: hsl(0, 0%, 0%);
+  border-radius: 2vmin;
 }
 
-.search-container__input select[aria-hidden="true"] {
+.search-results__container[aria-hidden="true"] {
   display: none;
 }
 
@@ -1152,6 +1156,15 @@ table caption {
   display: none;
 }
 
+.user-data__container .cancel-search__btn {
+  background-color: var(--btn-background__color);
+}
+
+.user-data__container .cancel-search__btn:hover {
+  background-color: var(--link-color);
+  color: hsl(0, 0%, 100%);
+}
+
 /* Add shift page */
 
 .add-shift__main {
@@ -1257,6 +1270,14 @@ textarea:hover {
   cursor: pointer;
   background-color: var(--btn-background__color);
   padding: 0.2rem;
+}
+
+.close-modal__btn:hover {
+  scale: 1.1;
+}
+
+.close-modal__btn[aria-hidden="true"] {
+  display: none;
 }
 
 .shift-details__modal[aria-hidden="true"] {
