@@ -1413,3 +1413,43 @@ input[aria-hidden="true"] {
 .show-password:focus {
   color: var(--btn-background__color);
 }
+
+/* Admin page */
+
+.admin-data {
+  width: 100%;
+  align-items: center;
+}
+
+.admin-logo__container {
+  margin-top: 0;
+}
+
+@media screen and (min-width: 32em) {
+  .admin-data {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .admin-logo__container {
+    margin-top: 0;
+  }
+
+  .admin-welcome__container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .admin-welcome__container > button {
+    width: 7rem;
+  }
+
+  .admin-header {
+    min-height: 7.1em;
+  }
+}
