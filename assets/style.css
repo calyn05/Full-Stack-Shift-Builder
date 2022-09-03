@@ -700,7 +700,6 @@ main.login-page {
 
 .register-data__container {
   --gap: 0.5rem;
-  width: 100%;
 }
 
 .reset-paragraph {
@@ -1187,6 +1186,7 @@ table caption {
 .workplace-options__container {
   position: absolute;
   top: 100%;
+  right: 25%;
   background-color: var(--section-background__color);
   border-radius: 2vmin;
   text-align: center;

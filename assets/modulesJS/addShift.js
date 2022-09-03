@@ -18,9 +18,7 @@ const workLocationInput = document.getElementById("workplace");
 const name = document.getElementById("shift-name");
 
 const workplaceList = document.getElementById("workplace-options__list");
-const workplaceOptionsContainer = document.getElementById(
-  "workplace-options__container"
-);
+const workplaceOptionsContainer = document.getElementById("workplace-options");
 
 function showProfileImageAddShift() {
   const users = getFromLocalStorage();
@@ -233,7 +231,6 @@ function addWorkplace() {
       continue;
     }
   }
-  workplaceOptionsContainer.setAttribute("aria-hidden", "false");
 
   for (let i = 0; i < workplaces.length; i++) {
     const option = document.createElement("li");
@@ -241,25 +238,14 @@ function addWorkplace() {
     option.innerHTML = `
     <li>${workplaces[i]}</li>
     `;
+    workplaceList.appendChild(option);
+    workplaceOptionsContainer.setAttribute("aria-hidden", "false");
 
     option.addEventListener("click", () => {
       workplace.value = workplaces[i];
-
-      console.log(workplaces);
-      console.log(workplace.value);
+      workplaceOptionsContainer.setAttribute("aria-hidden", "true");
     });
-
-    workplaceList.appendChild(option);
   }
-}
-
-function selectWorkplace(workplace) {
-  const workplaceInput = document.getElementById("workplace");
-  workplaceInput.value = workplace;
-  const workplaceOptionsContainer = document.getElementById(
-    "workplace-options__container"
-  );
-  workplaceOptionsContainer.setAttribute("aria-hidden", "true");
 }
 
 export {
