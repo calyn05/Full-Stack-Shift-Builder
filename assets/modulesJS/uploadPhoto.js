@@ -36,8 +36,13 @@ function showProfileImage() {
   const userLoggedIn = users.find((user) => {
     return user.loggedIn === true;
   });
-  profileImage.src = userLoggedIn.image;
-  profileImageNav.src = userLoggedIn.image;
+  if (userLoggedIn.image) {
+    profileImage.src = userLoggedIn.image;
+    profileImageNav.src = userLoggedIn.image;
+    profileImageUpload.src = userLoggedIn.image;
+  } else {
+    return;
+  }
 }
 
 export { imageToBase64, showProfileImage, profileImage, profileImageUpload };

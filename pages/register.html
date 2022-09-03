@@ -39,54 +39,70 @@
       </header>
       <section
         class="user-data__container register-data__container flex-column"
-        id="register-text"
       >
-        <h2 class="fs-secondary__heading fw-500 headings-txt__color">
+        <h2
+          class="fs-secondary__heading fw-500 headings-txt__color"
+          id="register-text"
+        >
           Register
         </h2>
         <form method="get" class="flex-column" id="register-form">
-          <label for="email">Email</label>
+          <label for="email" id="register-email-label">Email</label>
           <input
             type="email"
             name="email"
             autocomplete="username"
             id="register-email"
+            required
           />
           <div class="data-container flex-column">
             <div class="flex-column">
-              <label for="username">Username</label>
+              <label for="username" id="register-username-label"
+                >Username</label
+              >
               <input
                 type="text"
                 name="username"
                 autocomplete="username"
                 id="register-username"
+                required
               />
             </div>
             <div class="flex-column">
-              <label for="Age">Age</label>
-              <input type="number" id="age" />
+              <label for="Age" min="18" max="65" id="register-age-label"
+                >Age</label
+              >
+              <input type="number" id="age" required />
             </div>
           </div>
 
           <div class="data-container flex-column">
             <div class="flex-column">
-              <label for="First Name">First Name</label>
-              <input type="text" id="first-name" autocomplete="given-name" />
+              <label for="First Name" id="first-name-label">First Name</label>
+              <input
+                type="text"
+                id="first-name"
+                autocomplete="given-name"
+                required
+              />
             </div>
             <div class="flex-column">
-              <label for="Last Name">Last Name</label>
-              <input type="text" id="last-name" autocomplete="name" />
+              <label for="Last Name" id="last-name-label">Last Name</label>
+              <input type="text" id="last-name" autocomplete="name" required />
             </div>
           </div>
 
           <div class="data-container flex-column">
             <div class="password-container flex-column">
-              <label for="password">Password</label>
+              <label for="password" id="register-password-label"
+                >Password</label
+              >
               <input
                 type="password"
                 id="register-password"
                 name="password"
                 autocomplete="new-password"
+                required
               />
               <span aria-controls="register-password" class="show-password"
                 >Show</span
@@ -94,18 +110,26 @@
             </div>
 
             <div class="password-container flex-column">
-              <label for="confirm-password">Confirm Password</label>
+              <label for="confirm-password" id="confirm-password-label"
+                >Confirm Password</label
+              >
               <input
                 type="password"
                 id="confirm-password"
                 name="confirm-password"
                 autocomplete="current-password"
+                required
               />
               <span aria-controls="confirm-password" class="show-password"
                 >Show</span
               >
             </div>
           </div>
+          <p
+            class="register-error__text"
+            id="register-error-text"
+            aria-hidden="true"
+          ></p>
           <button type="submit" id="register-button">Register</button>
         </form>
       </section>

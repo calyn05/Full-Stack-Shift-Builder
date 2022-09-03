@@ -5,13 +5,48 @@ import {
   colorThemeSelection,
   removeThemeText,
 } from "./modulesJS/colorTheme.js";
-import { registerForm, registerUser } from "./modulesJS/register.js";
+import {
+  registerForm,
+  registerUser,
+  registerEmail,
+  userName,
+  age,
+  firstName,
+  lastName,
+  password,
+  confirmPassword,
+  validatePassword,
+  validateConfirmPassword,
+  validateEmail,
+  validateUsername,
+  validateAge,
+  validateFirstName,
+  validateLastName,
+  checkEmail,
+  checkUsername,
+} from "./modulesJS/register.js";
 import { loginForm, loginUser } from "./modulesJS/login.js";
 import {
   updateProfileForm,
   getUserFromLocalStorage,
   confirmInputVisible,
   updatePassword,
+  validateUpdatePassword,
+  validateUpdateConfirmPassword,
+  validateUpdateEmail,
+  validateUpdateUsername,
+  validateUpdateAge,
+  validateUpdateFirstName,
+  validateUpdateLastName,
+  updateEmail,
+  updateUsername,
+  updateAge,
+  updateFirstName,
+  updateLastName,
+  updateConfirmPassword,
+  checkUpdateEmail,
+  checkUpdateUsername,
+  updateProfileBtn,
 } from "./modulesJS/profile.js";
 import {
   checkIfLoggedIn,
@@ -76,6 +111,16 @@ window.addEventListener("DOMContentLoaded", checkMobileNav);
 function checkRegisterForm() {
   if (registerForm) {
     registerForm.addEventListener("submit", registerUser);
+    registerEmail.addEventListener("change", checkEmail);
+    registerEmail.addEventListener("input", validateEmail);
+    confirmPassword.addEventListener("input", validateConfirmPassword);
+    userName.addEventListener("input", validateUsername);
+    userName.addEventListener("change", checkUsername);
+    age.addEventListener("input", validateAge);
+    firstName.addEventListener("input", validateFirstName);
+    lastName.addEventListener("input", validateLastName);
+    password.addEventListener("input", validatePassword);
+    confirmPassword.addEventListener("input", validatePassword);
   } else {
     return;
   }
@@ -150,6 +195,21 @@ window.addEventListener("DOMContentLoaded", checkLogOutBtn);
 function checkUpdateProfileForm() {
   if (updateProfileForm) {
     getUserFromLocalStorage();
+    updateProfileBtn.setAttribute("disabled", "true");
+    updateEmail.addEventListener("input", validateUpdateEmail);
+    updateEmail.addEventListener("chnage", checkUpdateEmail);
+    updateUsername.addEventListener("input", validateUpdateUsername);
+    updateUsername.addEventListener("change", checkUpdateUsername);
+    updateAge.addEventListener("input", validateUpdateAge);
+    updateFirstName.addEventListener("input", validateUpdateFirstName);
+    updateLastName.addEventListener("input", validateUpdateLastName);
+    updatePassword.addEventListener("input", validateUpdatePassword);
+    if (updateConfirmPassword) {
+      updateConfirmPassword.addEventListener(
+        "input",
+        validateUpdateConfirmPassword
+      );
+    }
   } else {
     return;
   }
@@ -208,6 +268,9 @@ function checkProfileImageUpload() {
 function checkForProfileImage() {
   if (profileImage) {
     window.onload = showProfileImage();
+    window.addEventListener("DOMContentLoaded", checkProfileImageUpload);
+    window.addEventListener("DOMContentLoaded", checkForAddShiftProfileImg);
+    window.addEventListener("DOMContentLoaded", checkForHomepageProfileImg);
   } else {
     return;
   }
@@ -229,7 +292,4 @@ function checkForHomepageProfileImg() {
   }
 }
 
-window.addEventListener("DOMContentLoaded", checkProfileImageUpload);
 window.addEventListener("DOMContentLoaded", checkForProfileImage);
-window.addEventListener("DOMContentLoaded", checkForAddShiftProfileImg);
-window.addEventListener("DOMContentLoaded", checkForHomepageProfileImg);

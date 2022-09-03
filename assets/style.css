@@ -732,6 +732,16 @@ main p a:hover {
   color: var(--secondary-btn__color);
 }
 
+.register-error__text {
+  text-align: center;
+  color: var(--btn-background__color);
+  font-size: var(--fs-300);
+}
+
+.register-error__text[aria-hidden="true"] {
+  display: none;
+}
+
 /* Homepage styling */
 
 .homepage-body {

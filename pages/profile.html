@@ -96,7 +96,7 @@
       </form>
 
       <form class="update-form flex-column" id="update-form">
-        <label for="email">Email</label>
+        <label for="email" id="update-email-label">Email</label>
         <input
           type="email"
           name="Update email"
@@ -105,7 +105,7 @@
         />
         <div class="data-container flex-column">
           <div class="flex-column">
-            <label for="username">Username</label>
+            <label for="username" id="update-username-label">Username</label>
             <input
               type="text"
               id="update-username"
@@ -114,18 +114,18 @@
             />
           </div>
           <div class="flex-column">
-            <label for="Age">Age</label>
+            <label for="Age" min="18" max="65" id="update-age-label">Age</label>
             <input type="number" id="update-age" />
           </div>
         </div>
 
         <div class="data-container flex-column">
           <div class="flex-column">
-            <label for="First Name">First Name</label>
+            <label for="First Name" id="update-fname-label">First Name</label>
             <input type="text" id="update-fname" autocomplete="given-name" />
           </div>
           <div class="flex-column">
-            <label for="Last Name">Last Name</label>
+            <label for="Last Name" id="update-lname-label">Last Name</label>
             <input type="text" id="update-lname" autocomplete="name" />
           </div>
         </div>
@@ -136,7 +136,7 @@
           id="profile-password-container"
         >
           <div class="password-container flex-column">
-            <label for="password">Password</label>
+            <label for="password" id="update-password-label">Password</label>
             <input
               type="password"
               id="update-password"
@@ -153,11 +153,13 @@
             aria-hidden="true"
             id="confirm-update-password-container"
           >
-            <label for="confirm-password">Confirm Password</label>
+            <label for="confirm-password" id="confirm-update-password-label"
+              >Confirm Password</label
+            >
             <input
               type="password"
               id="confirm-update__password"
-              name="confirm-password"
+              name="confirm password"
               autocomplete="current-password"
             />
             <span aria-controls="confirm-update__password" class="show-password"
