@@ -76,29 +76,40 @@
     >
       <form class="add-shift__data flex-column" id="add-shift__form">
         <div class="add-date__select flex-column">
-          <label for="select date">Select date</label>
-          <input type="date" id="add-shift__date" />
+          <label for="select date" id="select-date-label">Select date</label>
+          <input type="date" id="add-shift__date" required />
         </div>
         <div class="add-shift__time flex-column">
           <label for="start time">Start time</label>
-          <input type="time" id="add-shift__start-time" />
+          <input type="time" id="add-shift__start-time" required />
           <label for="end time">End time</label>
-          <input type="time" id="add-shift__end-time" />
+          <input type="time" id="add-shift__end-time" required />
         </div>
         <div class="add-wage flex-column">
           <label for="hourly wage">Hourly wage</label>
-          <input type="text" name="hourly wage" id="hourly-wage" />
+          <input type="text" name="hourly wage" id="hourly-wage" required />
         </div>
         <div class="add-workplace flex-column">
           <div class="workplace-input__container flex-column">
             <label for="workplace">Workplace</label>
-            <input type="text" name="workplace" id="workplace" />
+            <input type="text" name="workplace" id="workplace" required />
           </div>
-          <select name="workplaces" id="workplaces-options"></select>
+          <div
+            class="workplace-options__container flex-column"
+            aria-hidden="true"
+            id="workplace-options"
+          >
+            <ul
+              class="workplace-options__list flex-column"
+              id="workplace-options__list"
+            >
+              <li>text</li>
+            </ul>
+          </div>
         </div>
         <div class="add-shift__name flex-column">
-          <label for="shift name">Unique name</label>
-          <input type="text" name="shift name" id="shift-name" />
+          <label for="shift name" id="unique-name-label">Unique name</label>
+          <input type="text" name="shift name" id="shift-name" required />
         </div>
         <div class="add-shift__comment--area flex-column">
           <label for="description">Comments</label>
@@ -107,6 +118,7 @@
             id="shift-notes"
             cols="30"
             rows="10"
+            required
           ></textarea>
         </div>
 

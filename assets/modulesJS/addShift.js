@@ -5,14 +5,22 @@ const profileImageAddShift = document.getElementById("profile-image-add-shift");
 // add shift to user
 
 const addShiftForm = document.getElementById("add-shift__form");
-const addShiftBtn = document.getElementById("ad-shift-submit-btn");
+const addShiftBtn = document.getElementById("add-shift-submit-btn");
 const addShiftText = document.getElementById("shift-added-text");
 const addShiftMainContainer = document.getElementById("add-shift-main");
 const tableDataProfitMonth = document.getElementById("highest-profit");
 
-const date = document.getElementById("add-shift__date");
-const startTime = document.getElementById("add-shift__start-time");
-const endTime = document.getElementById("add-shift__end-time");
+const selectDateLabel = document.getElementById("select-date-label");
+const uniqueNameLabel = document.getElementById("unique-name-label");
+
+const inputDate = document.getElementById("add-shift__date");
+const workLocationInput = document.getElementById("workplace");
+const name = document.getElementById("shift-name");
+
+const workplaceList = document.getElementById("workplace-options__list");
+const workplaceOptionsContainer = document.getElementById(
+  "workplace-options__container"
+);
 
 function showProfileImageAddShift() {
   const users = getFromLocalStorage();
@@ -22,27 +30,52 @@ function showProfileImageAddShift() {
   profileImageAddShift.src = userLoggedIn.image;
 }
 
-// Verify dates are not already in use
+// Verify dates are not already in use and a unique name is used
 
-function checkDateAndTime() {
+function checkDate() {
   const users = getFromLocalStorage();
   const user = users.find((user) => {
     return user.loggedIn === true;
   });
   const userShifts = user.shifts;
-  const shiftsDate = userShifts.find((shift) => {
-    return shift.shiftDate === date;
+  const dates = userShifts.map((shift) => {
+    return shift.shiftDate;
   });
-  console.log(shiftsDate);
-}
-window.addEventListener("load", () => {
-  if (addShiftForm) {
-    addShiftForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      checkDateAndTime();
-    });
+
+  if (dates.includes(inputDate.value)) {
+    selectDateLabel.innerText = "You already have a shift at this time";
+    selectDateLabel.style.color = "red";
+    addShiftBtn.disabled = true;
+  } else {
+    selectDateLabel.innerText = "Select date";
+    selectDateLabel.style.color = "var(--main-txt__color)";
+    addShiftBtn.disabled = false;
   }
-});
+}
+
+function checkUniqueName() {
+  const users = getFromLocalStorage();
+  const user = users.find((user) => {
+    return user.loggedIn === true;
+  });
+  const userShifts = user.shifts;
+  const names = userShifts.map((shift) => {
+    return shift.shiftName;
+  });
+  if (name.value.length > 2) {
+    if (names.includes(name.value)) {
+      addShiftBtn.disabled = true;
+      uniqueNameLabel.innerText = " Not unique";
+      uniqueNameLabel.style.color = "red";
+      return false;
+    } else {
+      uniqueNameLabel.innerText = "Unique";
+      uniqueNameLabel.style.color = "green";
+      addShiftBtn.disabled = false;
+      return true;
+    }
+  }
+}
 
 function addShift(e) {
   e.preventDefault();
@@ -183,10 +216,62 @@ function monthlyProfit() {
     `;
 }
 
+// Add shift workplace to workplace select
+
+function addWorkplace() {
+  const users = getFromLocalStorage();
+  const user = users.find((user) => {
+    return user.loggedIn === true;
+  });
+
+  const shifts = user.shifts;
+  const workplaces = [];
+  for (let i = 0; i < shifts.length; i++) {
+    if (!workplaces.includes(shifts[i].shiftWorkplace)) {
+      workplaces.push(shifts[i].shiftWorkplace);
+    } else {
+      continue;
+    }
+  }
+  workplaceOptionsContainer.setAttribute("aria-hidden", "false");
+
+  for (let i = 0; i < workplaces.length; i++) {
+    const option = document.createElement("li");
+
+    option.innerHTML = `
+    <li>${workplaces[i]}</li>
+    `;
+
+    option.addEventListener("click", () => {
+      workplace.value = workplaces[i];
+
+      console.log(workplaces);
+      console.log(workplace.value);
+    });
+
+    workplaceList.appendChild(option);
+  }
+}
+
+function selectWorkplace(workplace) {
+  const workplaceInput = document.getElementById("workplace");
+  workplaceInput.value = workplace;
+  const workplaceOptionsContainer = document.getElementById(
+    "workplace-options__container"
+  );
+  workplaceOptionsContainer.setAttribute("aria-hidden", "true");
+}
+
 export {
   addShift,
   addShiftForm,
   monthlyProfit,
   profileImageAddShift,
   showProfileImageAddShift,
+  checkUniqueName,
+  checkDate,
+  name,
+  inputDate,
+  addWorkplace,
+  workLocationInput,
 };

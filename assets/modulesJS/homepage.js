@@ -17,6 +17,7 @@ const personalPages = [
   "/pages/add-shift.html",
 ];
 const noShifts = document.getElementById("no-shifts");
+const tableCaption = document.getElementById("table-caption");
 const searchSection = document.getElementById("search-section");
 const searchByNameForm = document.getElementById("search-by-name");
 const searchOptions = document.getElementById("search-options");

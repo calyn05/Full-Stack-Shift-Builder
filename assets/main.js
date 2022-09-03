@@ -28,6 +28,12 @@ import {
   monthlyProfit,
   showProfileImageAddShift,
   profileImageAddShift,
+  checkUniqueName,
+  checkDate,
+  inputDate,
+  name,
+  addWorkplace,
+  workLocationInput,
 } from "./modulesJS/addShift.js";
 import {
   profileImageUpload,
@@ -165,6 +171,10 @@ window.addEventListener("load", removeThemeText);
 
 function checkAddShiftForm() {
   if (addShiftForm) {
+    inputDate.addEventListener("keyup", checkDate);
+    inputDate.addEventListener("change", checkDate);
+    name.addEventListener("keyup", checkUniqueName);
+    workLocationInput.addEventListener("focus", addWorkplace);
     addShiftForm.addEventListener("submit", addShift);
   } else {
     return;
