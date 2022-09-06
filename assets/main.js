@@ -40,7 +40,6 @@ import {
   updatePassword,
   validateUpdatePassword,
   validateUpdateConfirmPassword,
-  validateUpdateEmail,
   validateUpdateUsername,
   validateUpdateAge,
   validateUpdateFirstName,
@@ -51,7 +50,6 @@ import {
   updateFirstName,
   updateLastName,
   updateConfirmPassword,
-  checkUpdateEmail,
   checkUpdateUsername,
   updateProfileBtn,
 } from "./modulesJS/profile.js";
@@ -91,6 +89,13 @@ import {
   checkAdminMessages,
   adminUsernameContainer,
   openMessageList,
+  checkForMessageConfirmation,
+  requestResetEmail,
+  requestResetForm,
+  displayUsers,
+  adminPageUserImage,
+  displayUserImages,
+  closeMessagesBoxBtn,
 } from "./modulesJS/admin.js";
 
 window.addEventListener("load", loadingModal);
@@ -196,6 +201,7 @@ window.addEventListener("DOMContentLoaded", checkPersonalPages);
 window.addEventListener("load", () => {
   if (window.location.pathname === "/pages/homepage.html") {
     checkIfUserHasShifts();
+    window.onload = showHomepageProfileImage();
   } else {
     return;
   }
@@ -220,16 +226,17 @@ window.addEventListener("DOMContentLoaded", checkLogOutBtn);
 
 function checkUpdateProfileForm() {
   if (updateProfileForm) {
+    window.onload = showProfileImage();
+    updateEmail.disabled = true;
     getUserFromLocalStorage();
     updateProfileBtn.setAttribute("disabled", "true");
-    updateEmail.addEventListener("input", validateUpdateEmail);
-    updateEmail.addEventListener("chnage", checkUpdateEmail);
     updateUsername.addEventListener("input", validateUpdateUsername);
     updateUsername.addEventListener("input", checkUpdateUsername);
     updateAge.addEventListener("input", validateUpdateAge);
     updateFirstName.addEventListener("input", validateUpdateFirstName);
     updateLastName.addEventListener("input", validateUpdateLastName);
     updatePassword.addEventListener("input", validateUpdatePassword);
+    profileImageUpload.addEventListener("change", imageToBase64);
     if (updateConfirmPassword) {
       updateConfirmPassword.addEventListener(
         "input",
@@ -262,6 +269,7 @@ function checkAddShiftForm() {
     name.addEventListener("keyup", checkUniqueName);
     workLocationInput.addEventListener("focus", addWorkplace);
     addShiftForm.addEventListener("submit", addShift);
+    window.onload = showProfileImageAddShift();
   } else {
     return;
   }
@@ -281,45 +289,6 @@ function checkMonthlyProfit() {
 
 window.addEventListener("DOMContentLoaded", checkMonthlyProfit);
 
-// Upload profile image
-
-function checkProfileImageUpload() {
-  if (profileImageUpload) {
-    profileImageUpload.addEventListener("change", imageToBase64);
-  } else {
-    return;
-  }
-}
-
-function checkForProfileImage() {
-  if (profileImage) {
-    window.onload = showProfileImage();
-    window.addEventListener("DOMContentLoaded", checkProfileImageUpload);
-    window.addEventListener("DOMContentLoaded", checkForAddShiftProfileImg);
-    window.addEventListener("DOMContentLoaded", checkForHomepageProfileImg);
-  } else {
-    return;
-  }
-}
-
-function checkForAddShiftProfileImg() {
-  if (profileImageAddShift) {
-    window.onload = showProfileImageAddShift();
-  } else {
-    return;
-  }
-}
-
-function checkForHomepageProfileImg() {
-  if (homepageProfileImage) {
-    window.onload = showHomepageProfileImage();
-  } else {
-    return;
-  }
-}
-
-window.addEventListener("DOMContentLoaded", checkForProfileImage);
-
 // Admin page
 
 function checkAdminPage() {
@@ -327,9 +296,16 @@ function checkAdminPage() {
     adminLogOutBtn.addEventListener("click", logOutAdmin);
     checkAdminState();
     checkAdminMessages();
+    displayUsers();
     adminUsernameContainer.addEventListener("click", () => {
       openMessageList();
     });
+    window.onload = displayUserImages();
+    if (closeMessageBoxBtn) {
+      closeMessagesBoxBtn.addEventListener("click", () => {
+        window.location.reload();
+      });
+    }
   } else {
     return;
   }
@@ -337,4 +313,14 @@ function checkAdminPage() {
 
 window.addEventListener("DOMContentLoaded", checkAdminPage);
 
-// Check login page
+// Reset password
+
+function checkResetPasswordForm() {
+  if (requestResetForm) {
+    requestResetEmail.addEventListener("input", checkForMessageConfirmation);
+  } else {
+    return;
+  }
+}
+
+window.addEventListener("DOMContentLoaded", checkResetPasswordForm);

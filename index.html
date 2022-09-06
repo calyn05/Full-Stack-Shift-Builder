@@ -87,7 +87,48 @@
             Enter your email to request a password reset to your supervisor.
           </p>
         </div>
-        <form class="reset-password__form flex-column" id="reset-password-form">
+
+        <!-- request reset -->
+        <form
+          class="request-reset__password flex-column"
+          id="request-reset-password-form"
+          aria-hidden="false"
+        >
+          <label for="email" id="request-reset-email-label">Email</label>
+          <input
+            type="text"
+            id="request-reset-email"
+            name="email"
+            autocomplete="username"
+          />
+          <div class="flex">
+            <button
+              class="request-reset__btn"
+              type="submit"
+              id="request-reset-password"
+              aria-hidden="false"
+            >
+              Request
+            </button>
+            <button
+              type="button"
+              class="delete-all__btn"
+              id="delete-data-btn"
+              aria-hidden="true"
+            >
+              Delete
+            </button>
+            <button type="button" id="cancel-request">Cancel</button>
+          </div>
+        </form>
+
+        <!-- reset password -->
+
+        <form
+          class="reset-password__form flex-column"
+          id="reset-password-form"
+          aria-hidden="true"
+        >
           <label for="email" id="reset-email__label">Email</label>
           <input
             type="text"
@@ -120,10 +161,47 @@
             />
           </div>
           <div class="flex">
-            <button type="submit" id="reset-button">Reset</button>
+            <button
+              class="reset-btn"
+              type="submit"
+              id="reset-button"
+              aria-hidden="false"
+            >
+              Reset
+            </button>
+
             <button type="button" id="cancel-reset">Cancel</button>
           </div>
         </form>
+      </div>
+
+      <div
+        class="delete-confirmation__box"
+        id="delete-confirmation-box"
+        aria-hidden="true"
+      >
+        <div
+          class="delete-confirmation__container flex-column"
+          id="delete-confirmation-box-container"
+        >
+          <h2 class="fs-secondary__heading fw-500" id="delete-user-heading-txt">
+            Delete account?
+          </h2>
+          <p class="fs-600 fw-500">
+            Are you sure you want to delete your account? This action cannot be
+            undone.
+          </p>
+          <div class="user-data__container flex">
+            <button
+              class="delete-data__confirmation"
+              type="button"
+              id="delete-confirmation-btn"
+            >
+              Delete
+            </button>
+            <button type="button" id="cancel-delete-btn">Cancel</button>
+          </div>
+        </div>
       </div>
 
       <p class="main-paragraph fw-700 fs-600">

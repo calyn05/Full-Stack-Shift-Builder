@@ -22,7 +22,6 @@ const profilePassContainer = document.getElementById(
 
 // Validate update form
 
-const updateEmailLabel = document.getElementById("update-email-label");
 const updateUsernameLabel = document.getElementById("update-username-label");
 const updateAgeLabel = document.getElementById("update-age-label");
 const updateFirstNameLabel = document.getElementById("update-fname-label");
@@ -39,6 +38,9 @@ const profileImage = document.getElementById("profile-image");
 const profileImageNav = document.getElementById("profile-image-nav");
 const profileImageUpload = document.getElementById("profile-image-upload");
 const openImageUpload = document.getElementById("open-image-upload");
+const profileImageContainer = document.getElementById(
+  "profile-image-container"
+);
 
 function validateUpdatePassword() {
   if (!passwordRegex.test(updatePassword.value)) {
@@ -61,18 +63,6 @@ function validateUpdateConfirmPassword() {
     updateConfirmPasswordLabel.innerText = "Confirm password";
     updateConfirmPasswordLabel.style.color = "var(--main-txt__color)";
     updateProfileBtn.removeAttribute("disabled");
-  }
-}
-
-function validateUpdateEmail() {
-  if (emailRegex.test(updateEmail.value)) {
-    updateEmailLabel.innerText = "Email";
-    updateEmailLabel.style.color = "var(--main-txt__color)";
-    updateProfileBtn.removeAttribute("disabled");
-  } else {
-    updateEmailLabel.innerText = "Invalid email";
-    updateEmailLabel.style.color = "red";
-    updateProfileBtn.setAttribute("disabled", "true");
   }
 }
 
@@ -120,21 +110,6 @@ function validateUpdateLastName() {
   } else {
     updateLastNameLabel.innerText = "Last name";
     updateLastNameLabel.style.color = "var(--main-txt__color)";
-    updateProfileBtn.removeAttribute("disabled");
-  }
-}
-
-function checkUpdateEmail() {
-  const users = getFromLocalStorage("users");
-  const currentUser = getFromLocalStorage("currentUser");
-  const user = users.find((user) => user.email === updateEmail.value);
-  if (user && user.email !== currentUser.email) {
-    updateEmailLabel.innerText = "Email already in use";
-    updateEmailLabel.style.color = "red";
-    updateProfileBtn.setAttribute("disabled", "true");
-  } else {
-    updateEmailLabel.innerText = "Email";
-    updateEmailLabel.style.color = "var(--main-txt__color)";
     updateProfileBtn.removeAttribute("disabled");
   }
 }
@@ -231,7 +206,6 @@ export {
   profileImageUpload,
   validateUpdatePassword,
   validateUpdateConfirmPassword,
-  validateUpdateEmail,
   validateUpdateUsername,
   validateUpdateAge,
   validateUpdateFirstName,
@@ -242,7 +216,7 @@ export {
   updateFirstName,
   updateLastName,
   updateConfirmPassword,
-  checkUpdateEmail,
   checkUpdateUsername,
   updateProfileBtn,
+  profileImageContainer,
 };

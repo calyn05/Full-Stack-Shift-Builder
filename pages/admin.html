@@ -39,7 +39,10 @@
     <main
       class="main-homepage user-data__container admin-data__container flex-column"
     >
-      <h2 class="fs-secondary__heading fw-500 headings-txt__color"></h2>
+      <h2
+        class="fs-secondary__heading fw-500 headings-txt__color"
+        id="admin-home-heading"
+      ></h2>
       <div
         class="no-shift__container admin-no__users flex-column"
         aria-hidden="true"
@@ -48,11 +51,14 @@
         <p class="fw-700 fs-600">No users yet</p>
       </div>
 
-      <div class="admin-messages__container">
+      <div
+        class="admin-messages__container--main"
+        aria-hidden="true"
+        id="admin-messages-container"
+      >
         <ul
           class="admin-message__list flex-column flow"
           id="admin-message-list"
-          aria-hidden="false"
         ></ul>
         <div
           class="admin-messages__confirmation--box flex-column"
@@ -69,88 +75,26 @@
           ></p>
           <div class="message-confirmation__buttons flex">
             <button id="confirm-message-btn">Confirm</button>
-            <button>Delete</button>
+            <button id="delete-message-btn">Delete</button>
           </div>
         </div>
       </div>
+      <button
+        class="admin-messages__close--btn"
+        id="close-messages-box"
+        aria-hidden="true"
+      >
+        Close
+      </button>
 
       <section
-        class="search-section flex-column"
-        aria-hidden="true"
-        id="admin-search-section"
+        class="user-list__section"
+        id="admin-users-section"
+        aria-hidden="false"
       >
-        <form
-          class="search-by__name flex"
-          aria-hidden="false"
-          id="admin-search-by-name"
-        >
-          <div class="search-container__input flex-column">
-            <input
-              type="text"
-              placeholder="Search user..."
-              class="search-input"
-              id="admin-search-input-name"
-            />
-            <div
-              class="search-results__container flex-column"
-              aria-hidden="true"
-              name="search-options"
-              id="admin-search-options"
-            ></div>
-          </div>
-        </form>
-      </section>
-
-      <section class="user-list__section">
-        <ul class="users-container grid" id="admin-users-container">
-          <li class="user-list">
-            <img src="" alt="" />
-            <p class="user-name">User Name</p>
-          </li>
-        </ul>
-      </section>
-
-      <section
-        class="table-section flex-column"
-        aria-hidden="true"
-        id="admin-table-section"
-      >
-        <table class="table-container">
-          <caption class="fw-700 fs-500" id="admin-table-caption">
-            Shifts
-          </caption>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Shift Name</th>
-              <th>Start Time</th>
-              <th>End Time</th>
-              <th>Wage / h</th>
-              <th>Location</th>
-              <th>Total profit / shift</th>
-            </tr>
-          </thead>
-          <tbody id="admin-table-body"></tbody>
-          <tfoot class="fw-700">
-            <tr>
-              <td colspan="2">Highest earnings month</td>
-              <td colspan="5" id="admin-highest-profit"></td>
-            </tr>
-          </tfoot>
-        </table>
+        <ul class="users-container grid" id="admin-users-container"></ul>
       </section>
     </main>
-
-    <button
-      class="open-search"
-      aria-controls="admin-search-section"
-      aria-hidden="false"
-      id="admin-open-search-btn"
-    >
-      Search user
-    </button>
-
-    <!-- View shift details -->
 
     <div
       aria-modal="true"
