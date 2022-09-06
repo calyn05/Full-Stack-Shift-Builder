@@ -474,11 +474,72 @@ main.login-page {
   background-color: var(--btn-background__color);
 }
 
+/* Reset password */
+
 .login-data__container[aria-hidden="true"] {
   display: none;
 }
 
 .reset-container[aria-hidden="true"] {
+  display: none;
+}
+
+.reset-password__container[aria-hidden="true"] {
+  display: none;
+}
+
+.admin-messages__container {
+  position: relative;
+  padding-bottom: 0.825rem;
+  cursor: pointer;
+}
+
+.admin-messages__container:hover {
+  color: var(--secondary-btn__color);
+}
+
+.admin-messages__container span {
+  position: absolute;
+  top: -15%;
+  right: -20%;
+  color: var(--main-txt__color);
+  font-size: var(--fs-500);
+  font-weight: var(--fw-semi-bold);
+  text-shadow: var(--btn-background__color) 0 0.1rem 0.1rem;
+}
+
+.admin-message__list {
+  text-align: center;
+}
+
+.admin-message__list li {
+  list-style: none;
+  margin: 0.5rem 0;
+  padding: 0.5rem 0;
+  border-bottom: 1px inset var(--btn-background__color);
+  background-color: var(--main-background__color);
+  padding: 1rem 2rem;
+  border-radius: 1em;
+}
+
+.admin-message__buttons {
+  margin-top: 1rem;
+}
+
+.message-confirmation__buttons button:last-child {
+  background-color: hsl(0, 100%, 50%);
+  color: hsl(0, 0%, 100%);
+}
+
+.admin-message__list[aria-hidden="true"] {
+  display: none;
+}
+
+.admin-messages__confirmation--box {
+  text-align: center;
+}
+
+.admin-messages__confirmation--box[aria-hidden="true"] {
   display: none;
 }
 

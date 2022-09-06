@@ -25,7 +25,14 @@ import {
   checkEmail,
   checkUsername,
 } from "./modulesJS/register.js";
-import { loginForm, loginUser } from "./modulesJS/login.js";
+import {
+  loginForm,
+  loginUser,
+  logInAdmin,
+  loginEmail,
+  loginPassword,
+  checkAdminState,
+} from "./modulesJS/login.js";
 import {
   updateProfileForm,
   getUserFromLocalStorage,
@@ -76,6 +83,15 @@ import {
   imageToBase64,
   showProfileImage,
 } from "./modulesJS/uploadPhoto.js";
+
+import {
+  getAdminFromLocalStorage,
+  logOutAdmin,
+  adminLogOutBtn,
+  checkAdminMessages,
+  adminUsernameContainer,
+  openMessageList,
+} from "./modulesJS/admin.js";
 
 window.addEventListener("load", loadingModal);
 window.addEventListener("DOMContentLoaded", localStorageColorTheme);
@@ -133,6 +149,16 @@ window.addEventListener("DOMContentLoaded", checkRegisterForm);
 function checkLoginForm() {
   if (loginForm) {
     loginForm.addEventListener("submit", loginUser);
+    getAdminFromLocalStorage();
+    loginEmail.addEventListener("input", () => {
+      if (loginEmail.value === "admin") {
+        loginPassword.addEventListener("input", () => {
+          if (loginPassword.value === "admin") {
+            logInAdmin();
+          }
+        });
+      }
+    });
   } else {
     return;
   }
@@ -199,7 +225,7 @@ function checkUpdateProfileForm() {
     updateEmail.addEventListener("input", validateUpdateEmail);
     updateEmail.addEventListener("chnage", checkUpdateEmail);
     updateUsername.addEventListener("input", validateUpdateUsername);
-    updateUsername.addEventListener("change", checkUpdateUsername);
+    updateUsername.addEventListener("input", checkUpdateUsername);
     updateAge.addEventListener("input", validateUpdateAge);
     updateFirstName.addEventListener("input", validateUpdateFirstName);
     updateLastName.addEventListener("input", validateUpdateLastName);
@@ -293,3 +319,22 @@ function checkForHomepageProfileImg() {
 }
 
 window.addEventListener("DOMContentLoaded", checkForProfileImage);
+
+// Admin page
+
+function checkAdminPage() {
+  if (window.location.pathname === "/pages/admin.html") {
+    adminLogOutBtn.addEventListener("click", logOutAdmin);
+    checkAdminState();
+    checkAdminMessages();
+    adminUsernameContainer.addEventListener("click", () => {
+      openMessageList();
+    });
+  } else {
+    return;
+  }
+}
+
+window.addEventListener("DOMContentLoaded", checkAdminPage);
+
+// Check login page

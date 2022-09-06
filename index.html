@@ -84,10 +84,10 @@
             Reset password?
           </h2>
           <p class="fs-600 fw-500" id="reset-password-paragraph">
-            Enter your email address and the new password.
+            Enter your email to request a password reset to your supervisor.
           </p>
         </div>
-        <form class="flex-column" id="reset-password-form">
+        <form class="reset-password__form flex-column" id="reset-password-form">
           <label for="email" id="reset-email__label">Email</label>
           <input
             type="text"
@@ -95,24 +95,30 @@
             name="email"
             autocomplete="username"
           />
-          <label for="reset password" id="reset-password__label"
-            >New password</label
+          <div
+            class="reset-password__container flex-column"
+            id="reset-password-input-container"
+            aria-hidden="true"
           >
-          <input
-            type="password"
-            name="reset password"
-            id="reset-password"
-            autocomplete="new-password"
-          />
-          <label for="Confirm password" id="confirm-reset-password-label"
-            >Confirm new password</label
-          >
-          <input
-            type="password"
-            name="confirm reset password"
-            id="confirm-reset-password"
-            autocomplete="new-password"
-          />
+            <label for="reset password" id="reset-password__label"
+              >New password</label
+            >
+            <input
+              type="password"
+              name="reset password"
+              id="reset-password"
+              autocomplete="new-password"
+            />
+            <label for="Confirm password" id="confirm-reset-password-label"
+              >Confirm new password</label
+            >
+            <input
+              type="password"
+              name="confirm reset password"
+              id="confirm-reset-password"
+              autocomplete="new-password"
+            />
+          </div>
           <div class="flex">
             <button type="submit" id="reset-button">Reset</button>
             <button type="button" id="cancel-reset">Cancel</button>

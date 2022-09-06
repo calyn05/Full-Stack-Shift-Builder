@@ -1,4 +1,5 @@
 import { getFromLocalStorage } from "./register.js";
+import { getAdminFromLocalStorage } from "./admin.js";
 
 // login USER
 
@@ -29,6 +30,9 @@ const resetParagraph = document.getElementById("reset-password-paragraph");
 const openResetForm = document.getElementById("reset-password-btn");
 const loginSection = document.getElementById("login-data-container");
 const cancelReset = document.getElementById("cancel-reset");
+const resetPassInputContainer = document.getElementById(
+  "reset-password-input-container"
+);
 
 function loginUser(e) {
   e.preventDefault();
@@ -139,6 +143,50 @@ function openReset(e) {
   }
 }
 
+// function resetPassword(e) {
+//   e.preventDefault();
+//   const users = getFromLocalStorage();
+//   const user = users.find((user) => {
+//     return user.email === resetPasswordEmail.value;
+//   });
+//   if (user) {
+//     resetPasswordEmailLabel.innerText = "Email";
+//     resetNewPasswordLabel.innerText = "New password";
+//     resetNewPasswordConfirmLabel.innerText = "Confirm new password";
+//     if (resetNewPassword.value === resetNewPasswordConfirm.value) {
+//       resetPasswordEmailLabel.innerText = "Email";
+//       resetNewPasswordLabel.innerText = "New password";
+//       resetNewPasswordConfirmLabel.innerText = "Confirm new password";
+//       users.find((user) => {
+//         return user.email === resetPasswordEmail.value;
+//       }).password = resetNewPassword.value;
+//       localStorage.setItem("users", JSON.stringify(users));
+//       resetHeadingText.innerText = "Reset completed!";
+//       resetParagraph.style.display = "none";
+//       setTimeout(() => {
+//         window.location.reload();
+//         resetPasswordContainer.setAttribute("aria-hidden", "true");
+//       }, 2000);
+//     } else {
+//       resetNewPasswordConfirmLabel.innerText = "Passwords do not match !";
+//       resetNewPasswordConfirmLabel.style.color = "red";
+//       setTimeout(() => {
+//         resetNewPasswordConfirmLabel.innerText = "Confirm password";
+//         resetNewPasswordConfirmLabel.style.color = "var(--main-text__color)";
+//       }, 3000);
+//     }
+//   } else {
+//     resetPasswordEmailLabel.innerText = "Email not found !";
+//     resetPasswordEmailLabel.style.color = "red";
+//     setTimeout(() => {
+//       resetPasswordEmailLabel.innerText = "Email";
+//       resetPasswordEmailLabel.style.color = "var(--main-text__color)";
+//     }, 3000);
+//   }
+// }
+
+// Reset password with validation from admin
+
 function resetPassword(e) {
   e.preventDefault();
   const users = getFromLocalStorage();
@@ -146,31 +194,24 @@ function resetPassword(e) {
     return user.email === resetPasswordEmail.value;
   });
   if (user) {
-    resetPasswordEmailLabel.innerText = "Email";
-    resetNewPasswordLabel.innerText = "New password";
-    resetNewPasswordConfirmLabel.innerText = "Confirm new password";
-    if (resetNewPassword.value === resetNewPasswordConfirm.value) {
-      resetPasswordEmailLabel.innerText = "Email";
-      resetNewPasswordLabel.innerText = "New password";
-      resetNewPasswordConfirmLabel.innerText = "Confirm new password";
-      users.find((user) => {
-        return user.email === resetPasswordEmail.value;
-      }).password = resetNewPassword.value;
-      localStorage.setItem("users", JSON.stringify(users));
-      resetHeadingText.innerText = "Reset completed!";
-      resetParagraph.style.display = "none";
-      setTimeout(() => {
-        window.location.reload();
-        resetPasswordContainer.setAttribute("aria-hidden", "true");
-      }, 2000);
-    } else {
-      resetNewPasswordConfirmLabel.innerText = "Passwords do not match !";
-      resetNewPasswordConfirmLabel.style.color = "red";
-      setTimeout(() => {
-        resetNewPasswordConfirmLabel.innerText = "Confirm password";
-        resetNewPasswordConfirmLabel.style.color = "var(--main-text__color)";
-      }, 3000);
-    }
+    const message = {
+      email: resetPasswordEmail.value,
+      content: "Reset password",
+      confirmation: false,
+    };
+    const userMessages = [];
+    userMessages.push(message);
+    user.messages = userMessages;
+    localStorage.setItem("users", JSON.stringify(users));
+    const admin = getAdminFromLocalStorage();
+    const adminMessages = admin.messages;
+    adminMessages.push(message);
+    localStorage.setItem("admin", JSON.stringify(admin));
+    resetHeadingText.innerText = "Request sent!";
+    resetParagraph.innerText = "Try later to change your password";
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   } else {
     resetPasswordEmailLabel.innerText = "Email not found !";
     resetPasswordEmailLabel.style.color = "red";
@@ -180,6 +221,59 @@ function resetPassword(e) {
     }, 3000);
   }
 }
+
+// Validate user message
+
+function validateMessage() {
+  const admin = getAdminFromLocalStorage();
+  const adminMessages = admin.messages;
+  const users = getFromLocalStorage();
+  const user = users.find((user) => {
+    return adminMessages[0].email === user.email;
+  });
+  const userMessages = user.messages;
+  if (adminMessages[0].confirmation === true) {
+    userMessages[0].confirmation = true;
+    localStorage.setItem("users", JSON.stringify(users));
+    adminMessages.shift();
+    localStorage.setItem("admin", JSON.stringify(admin));
+    window.location.reload();
+  } else {
+    userMessages[0].confirmation = false;
+    localStorage.setItem("users", JSON.stringify(users));
+    adminMessages.shift();
+    localStorage.setItem("admin", JSON.stringify(admin));
+    window.location.reload();
+  }
+}
+
+// function confirmPasswordChange() {
+//   const admin = getAdminFromLocalStorage();
+//   const adminMessages = admin.messages;
+//   adminMessages.forEach((message) => {
+//     if (message.confirmation === true) {
+//       const users = getFromLocalStorage();
+//       const user = users.find((user) => {
+//         return user.email === message.email;
+//       });
+//       user.password = resetNewPassword.value;
+//       localStorage.setItem("users", JSON.stringify(users));
+//       resetHeadingText.innerText = "Reset completed!";
+//       resetParagraph.style.display = "none";
+//       setTimeout(() => {
+//         window.location.reload();
+//         resetPasswordContainer.setAttribute("aria-hidden", "true");
+//       }, 2000);
+//     } else {
+//       resetHeadingText.innerText = "Request denied!";
+//       resetParagraph.style.display = "none";
+//       setTimeout(() => {
+//         window.location.reload();
+//         resetPasswordContainer.setAttribute("aria-hidden", "true");
+//       }, 2000);
+//     }
+//   });
+// }
 
 window.onload = function () {
   if (openResetForm) {
@@ -193,6 +287,39 @@ window.onload = function () {
   }
 };
 
+// Admin login
+
+function logInAdmin() {
+  const admin = getAdminFromLocalStorage();
+  console.log(admin);
+  if (admin.username === loginEmail.value) {
+    if (admin.password === loginPassword.value) {
+      admin.loggedIn = true;
+      loginText.innerText = `Welcome ${admin.username}`;
+      localStorage.setItem("admin", JSON.stringify(admin));
+      setTimeout(() => {
+        loginForm.reset();
+      }, 2000);
+      setTimeout(() => {
+        window.location.pathname = "./pages/admin.html";
+      }, 2000);
+    } else {
+      return;
+    }
+  }
+}
+
+// Check admin state
+
+function checkAdminState() {
+  const admin = getAdminFromLocalStorage();
+  if (admin.loggedIn === false) {
+    window.location.pathname = "../index.html";
+  } else {
+    return;
+  }
+}
+
 export {
   loginUser,
   sortUsers,
@@ -200,4 +327,9 @@ export {
   capitalizeUserName,
   loginForm,
   loginTime,
+  logInAdmin,
+  loginEmail,
+  loginPassword,
+  checkAdminState,
+  validateMessage,
 };

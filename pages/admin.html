@@ -9,7 +9,7 @@
       href="../assets/images/favicon.ico"
       type="image/x-icon"
     />
-    <title>Manage My Shifts - Dashboard</title>
+    <title>Manage My Shifts - Admin Dashboard</title>
     <link rel="stylesheet" href="../assets/style.css" />
     <script src="../assets/main.js" type="module"></script>
   </head>
@@ -18,8 +18,13 @@
       <div class="homepage-login__data admin-data flex-column">
         <div class="welcome-container admin-welcome__container flex-column">
           <p class="fs-600">Hello</p>
-          <p class="fs-600 fw-700" id="homepage-username">Admin</p>
-          <button class="log-out__btn fw-500" id="log-out-btn">Log Out</button>
+          <div class="admin-messages__container" id="admin-username-container">
+            <p class="fs-600 fw-700">Admin</p>
+            <span id="admin-messages-nr">0</span>
+          </div>
+          <button class="log-out__btn fw-500" id="admin-logout-btn">
+            Log Out
+          </button>
         </div>
         <div class="logo homepage-logo__container admin-logo__container">
           <a href="admin.html">
@@ -34,13 +39,39 @@
     <main
       class="main-homepage user-data__container admin-data__container flex-column"
     >
-      <h2 class="fs-secondary__heading fw-500 headings-txt__color">Users</h2>
+      <h2 class="fs-secondary__heading fw-500 headings-txt__color"></h2>
       <div
         class="no-shift__container admin-no__users flex-column"
-        aria-hidden="false"
+        aria-hidden="true"
         id="admin-no-users"
       >
         <p class="fw-700 fs-600">No users yet</p>
+      </div>
+
+      <div class="admin-messages__container">
+        <ul
+          class="admin-message__list flex-column flow"
+          id="admin-message-list"
+          aria-hidden="false"
+        ></ul>
+        <div
+          class="admin-messages__confirmation--box flex-column"
+          aria-hidden="true"
+          id="messages-confirmation-box"
+        >
+          <h3
+            class="admin-message-item__title fs-600 fw-700"
+            id="message-heading"
+          ></h3>
+          <p
+            class="admin-message__from fs-500 fw-500"
+            id="message-received-from"
+          ></p>
+          <div class="message-confirmation__buttons flex">
+            <button id="confirm-message-btn">Confirm</button>
+            <button>Delete</button>
+          </div>
+        </div>
       </div>
 
       <section
@@ -56,7 +87,7 @@
           <div class="search-container__input flex-column">
             <input
               type="text"
-              placeholder="Search shift by name..."
+              placeholder="Search user..."
               class="search-input"
               id="admin-search-input-name"
             />
@@ -68,6 +99,15 @@
             ></div>
           </div>
         </form>
+      </section>
+
+      <section class="user-list__section">
+        <ul class="users-container grid" id="admin-users-container">
+          <li class="user-list">
+            <img src="" alt="" />
+            <p class="user-name">User Name</p>
+          </li>
+        </ul>
       </section>
 
       <section
