@@ -45,7 +45,7 @@ function checkDate() {
   });
 
   if (dates.includes(inputDate.value)) {
-    selectDateLabel.innerText = "You already have a shift at this time";
+    selectDateLabel.innerText = "You already have a shift at this date";
     selectDateLabel.style.color = "red";
     addShiftBtn.disabled = true;
   } else {
@@ -175,6 +175,7 @@ function monthlyProfit() {
       profitPerMonth.profit.push([shifts[i].shiftTotalProfit]);
     }
   }
+  localStorage.setItem("users", JSON.stringify(users));
 
   let highestProfit = 0;
   let highestProfitYear = 0;

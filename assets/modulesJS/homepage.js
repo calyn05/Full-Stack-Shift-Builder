@@ -198,7 +198,8 @@ function updateShift(e) {
 
 function checkForModalOpened() {
   if (editShiftModal) {
-    updateShiftBtn.addEventListener("click", updateShift);
+    editShiftForm.addEventListener("submit", updateShift);
+    editShiftName.disabled = true;
     deleteShiftBtn.addEventListener("click", openDeleteModal);
     closeEditShiftModal.addEventListener("click", closeEditModal);
     if (confirmDeleteBtn) {
@@ -316,20 +317,20 @@ function searchShiftsByName(e) {
           searchOptions.innerHTML += `<p>${options[i]}</p>`;
         }
       }
-      if (searchByName.value < 1) {
+      if (searchByName.value < 2) {
         searchOptions.setAttribute("aria-hidden", "true");
         options.splice(0, options.length);
       }
     });
   }
-  options.forEach((option) => {
+  options.forEach(() => {
     const optionP = document.querySelectorAll("p");
     optionP.forEach((p) => {
       p.addEventListener("click", () => {
-        searchByName.value = option;
+        searchByName.value = p.textContent;
         searchOptions.setAttribute("aria-hidden", "true");
         filteredShifts.forEach((shift) => {
-          if (shift.shiftName === option) {
+          if (shift.shiftName === p.textContent) {
             displayShiftInModal(shift);
           }
         });
