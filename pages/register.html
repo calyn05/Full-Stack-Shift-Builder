@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="../assets/images/favicon.ico"
+      type="image/x-icon"
+    />
+    <title>Manage My Shifts - Register</title>
+    <link rel="stylesheet" href="../assets/style.css" />
+    <script src="../assets/main.js" type="module"></script>
+  </head>
+  <body>
+    <div
+      class="color-mode__container login-theme__container headings-txt__color fw-500 fs-600 flex"
+      id="color-theme"
+    >
+      <p>Dark</p>
+      <img src="../assets/images/icon-moon.svg" alt="Dark Mode icon" />
+    </div>
+    <main class="login-page flex-column">
+      <header class="primary-header register-header">
+        <nav class="nav-container register-nav flex-column flow">
+          <div class="logo">
+            <a href="../index.html">
+              <img
+                src="../assets/images/manage-my-shifts-logo-light.jpg"
+                alt="logo"
+            /></a>
+          </div>
+          <h1 class="fs-primary__heading fw-500">Manage My Shifts</h1>
+          <form action="../index.html" method="get">
+            <button class="uppercase">Login</button>
+          </form>
+        </nav>
+      </header>
+      <section
+        class="user-data__container register-data__container flex-column"
+      >
+        <h2
+          class="fs-secondary__heading fw-500 headings-txt__color"
+          id="register-text"
+        >
+          Register
+        </h2>
+        <form method="get" class="flex-column" id="register-form">
+          <label for="email" id="register-email-label">Email</label>
+          <input
+            type="email"
+            name="email"
+            autocomplete="username"
+            id="register-email"
+            required
+          />
+          <div class="data-container flex-column">
+            <div class="flex-column">
+              <label for="username" id="register-username-label"
+                >Username</label
+              >
+              <input
+                type="text"
+                name="username"
+                autocomplete="username"
+                id="register-username"
+                required
+              />
+            </div>
+            <div class="flex-column">
+              <label for="Age" id="register-age-label">Age</label>
+              <input type="number" min="18" max="65" id="age" required />
+            </div>
+          </div>
+
+          <div class="data-container flex-column">
+            <div class="flex-column">
+              <label for="First Name" id="first-name-label">First Name</label>
+              <input
+                type="text"
+                id="first-name"
+                autocomplete="given-name"
+                required
+              />
+            </div>
+            <div class="flex-column">
+              <label for="Last Name" id="last-name-label">Last Name</label>
+              <input type="text" id="last-name" autocomplete="name" required />
+            </div>
+          </div>
+
+          <div class="data-container flex-column">
+            <div class="password-container flex-column">
+              <label for="password" id="register-password-label"
+                >Password</label
+              >
+              <input
+                type="password"
+                id="register-password"
+                name="password"
+                autocomplete="new-password"
+                required
+              />
+              <span aria-controls="register-password" class="show-password"
+                >Show</span
+              >
+            </div>
+
+            <div class="password-container flex-column">
+              <label for="confirm-password" id="confirm-password-label"
+                >Confirm Password</label
+              >
+              <input
+                type="password"
+                id="confirm-password"
+                name="confirm-password"
+                autocomplete="current-password"
+                required
+              />
+              <span aria-controls="confirm-password" class="show-password"
+                >Show</span
+              >
+            </div>
+          </div>
+          <p
+            class="register-error__text"
+            id="register-error-text"
+            aria-hidden="true"
+          ></p>
+          <button type="submit" id="register-button">Register</button>
+        </form>
+      </section>
+      <p class="fw-700 fs-600">
+        Or, if you already have an account, <a href="../index.html">Login</a>
+      </p>
+    </main>
+    <div aria-modal="true" aria-hidden="true" class="loading-circle__modal">
+      <div class="loading-circle">
+        <p class="loading-circle__percentage fw-700 headings-txt__color"></p>
+        <div class="half-circle"></div>
+        <div class="half-circle"></div>
+        <div class="half-circle__top"></div>
+      </div>
+    </div>
+    <footer class="footer register-footer">
+      <p class="fw-500 fs-600">
+        Made with { 💚 } by {
+        <a
+          href="https://github.com/calyn05"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Calyn05</a
+        >
+        }
+      </p>
+    </footer>
+  </body>
+</html>

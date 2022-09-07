@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="../assets/images/favicon.ico"
+      type="image/x-icon"
+    />
+    <title>Manage My Shifts - HomePage</title>
+    <link rel="stylesheet" href="../assets/style.css" />
+    <script src="../assets/main.js" type="module"></script>
+  </head>
+  <body class="homepage-body flex-column flow">
+    <header class="primary-header homepage-header flex">
+      <div class="homepage-login__data flex">
+        <div class="welcome-container flex-column">
+          <p class="fs-600">Hello</p>
+          <p class="fs-600 fw-700" id="homepage-username">Username</p>
+          <button class="log-out__btn fw-500" id="log-out-btn">Log Out</button>
+        </div>
+        <div class="profile-img__container">
+          <a href="profile.html">
+            <img src="" alt="profile image" id="homepage-profile-image" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile nav toggle -->
+      <button
+        class="mobile-nav__toggle"
+        aria-expanded="false"
+        aria-controls="primary-navigation"
+      >
+        <span class="screen-reader">Menu</span>
+      </button>
+
+      <nav class="nav-container homepage-nav flex-column flow">
+        <ul
+          id="primary-navigation"
+          data-visible="false"
+          class="primary-navigation underlined-indicators uppercase flex"
+        >
+          <li class="active" aria-selected="true">
+            <a class="fw-700 fs-500 headings-txt__color" href="homepage.html"
+              >Shifts</a
+            >
+          </li>
+          <li>
+            <a class="fw-700 fs-500 headings-txt__color" href="add-shift.html"
+              >New Shift</a
+            >
+          </li>
+          <li>
+            <a class="fw-700 fs-500 headings-txt__color" href="profile.html"
+              >Profile</a
+            >
+          </li>
+
+          <li class="logo homepage-logo__container">
+            <a href="homepage.html">
+              <img
+                src="../assets/images/manage-my-shifts-logo-light.jpg"
+                alt="logo"
+            /></a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-homepage user-data__container flex-column">
+      <div
+        class="no-shift__container flex-column"
+        aria-hidden="false"
+        id="no-shifts"
+      >
+        <p class="fw-700 fs-600">No shifts added</p>
+      </div>
+      <form
+        action="./add-shift.html"
+        method="get"
+        class="add-shift__homepage flex"
+        aria-hidden="false"
+        id="add-shift-homepage-form"
+      >
+        <button type="submit">Add New</button>
+      </form>
+
+      <section
+        class="search-section flex-column"
+        aria-hidden="true"
+        id="search-section"
+      >
+        <form
+          class="search-by__name flex"
+          aria-hidden="false"
+          id="search-by-name"
+        >
+          <div class="search-container__input flex-column">
+            <input
+              type="text"
+              placeholder="Search shift by name..."
+              class="search-input"
+              id="search-input-name"
+            />
+            <div
+              class="search-results__container flex-column"
+              aria-hidden="true"
+              name="search-options"
+              id="search-options"
+            ></div>
+          </div>
+        </form>
+
+        <p id="search-paragraph" aria-hidden="false">
+          Or, search shift by date
+        </p>
+
+        <form
+          class="search-by__date flex-column"
+          aria-hidden="true"
+          id="search-by-date"
+        >
+          <div class="search-date flex-column">
+            <label for="from-date">From</label>
+            <input type="date" id="from-date" />
+          </div>
+          <div class="search-date flex-column">
+            <label for="to-date">To</label>
+            <input type="date" id="to-date" />
+          </div>
+          <button class="submit-search__btn" type="submit" id="search-button">
+            Search
+          </button>
+          <button
+            class="cancel-search__btn"
+            type="button"
+            id="cancel-search-button"
+          >
+            Cancel
+          </button>
+        </form>
+      </section>
+
+      <section
+        class="table-section flex-column"
+        aria-hidden="true"
+        id="table-section"
+      >
+        <table class="table-container">
+          <caption class="fw-700 fs-500" id="table-caption">
+            Shifts
+          </caption>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Shift Name</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Wage / h</th>
+              <th>Location</th>
+              <th>Total profit / shift</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+          <tfoot class="fw-700">
+            <tr>
+              <td colspan="2">Highest earnings month</td>
+              <td colspan="5" id="highest-profit"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </section>
+    </main>
+
+    <button
+      class="open-search"
+      aria-controls="search-section"
+      aria-hidden="false"
+      id="open-search-btn"
+    >
+      Search shift
+    </button>
+
+    <!-- View shift details -->
+
+    <div
+      aria-modal="true"
+      class="shift-details__modal user-data__container"
+      id="edit-shift-modal"
+      aria-hidden="true"
+    >
+      <img
+        class="close-modal__btn"
+        id="close-modal-btn"
+        src="../assets/images/icon-close.svg"
+        alt="close"
+        aria-hidden="false"
+      />
+
+      <form
+        class="add-shift__data edit-shift__form flex-column"
+        id="edit-shift-form"
+      >
+        <div
+          class="form-container__edit--shift flex-column"
+          aria-hidden="false"
+          id="edit-shift-input-container"
+        >
+          <div class="add-date__select flex-column">
+            <label for="date">Date</label>
+            <input type="date" id="edit-shift__date" />
+          </div>
+          <div class="add-shift__time flex-column">
+            <label for="start time">Start time</label>
+            <input type="time" id="edit-shift__start-time" />
+            <label for="end time">End time</label>
+            <input type="time" id="edit-shift__end-time" />
+          </div>
+          <div class="add-wage flex-column">
+            <label for="hourly wage">Hourly wage</label>
+            <input type="text" name="hourly wage" id="edit-hourly-wage" />
+          </div>
+          <div class="workplace-input__container flex-column">
+            <label for="workplace">Workplace</label>
+            <input type="text" name="workplace" id="edit-workplace" />
+          </div>
+          <div class="add-shift__name flex-column">
+            <label for="shift name">Unique name</label>
+            <input type="text" name="shift name" id="edit-shift-name" />
+          </div>
+          <div class="edit-shift__comment--area flex-column">
+            <label for="description">Notes</label>
+            <textarea
+              name="description"
+              id="edit-shift-notes"
+              cols="30"
+              rows="10"
+            ></textarea>
+          </div>
+        </div>
+        <div
+          class="edit-buttons__container flex"
+          aria-hidden="false"
+          id="edit-buttons-container"
+        >
+          <button
+            class="update-shift__button"
+            type="button"
+            id="update-shift-btn"
+          >
+            Update
+          </button>
+          <button
+            class="delete-shift__button"
+            type="submit"
+            id="delete-shift-btn"
+          >
+            Delete
+          </button>
+        </div>
+
+        <div
+          class="delete-container flex-column"
+          aria-hidden="true"
+          id="delete-shift-modal"
+        >
+          <p
+            class="confirm-delete__text fs-secondary__heading"
+            id="confirm-delete-text"
+          >
+            Deleted data can not be recovered! Delete?
+          </p>
+          <button
+            type="button"
+            class="cancel-delete__btn"
+            id="cancel-delete-btn"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="confirm-delete__shift--btn"
+            id="confirm-delete__shift--btn"
+          >
+            Delete
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div aria-modal="true" aria-hidden="true" class="loading-circle__modal">
+      <div class="loading-circle">
+        <p class="loading-circle__percentage fw-700 headings-txt__color"></p>
+        <div class="half-circle"></div>
+        <div class="half-circle"></div>
+        <div class="half-circle__top"></div>
+      </div>
+    </div>
+    <div
+      class="color-mode__container homepage-color__theme--container headings-txt__color fw-500 fs-600 flex"
+      id="color-theme"
+    >
+      <p>Dark</p>
+      <img src="../assets/images/icon-moon.svg" alt="Dark Mode icon" />
+    </div>
+    <footer class="footer homepage-footer flow">
+      <ul class="homepage-footer__nav fw-700 fs-600 flex">
+        <li>
+          <a href="homepage.html">My Shifts</a>
+        </li>
+        <li>
+          <a href="add-shift.html">Add New Shift</a>
+        </li>
+        <li>
+          <a href="profile.html">Profile</a>
+        </li>
+      </ul>
+      <p class="fw-700 fs-600">
+        &copy; Manage My Shifts 2022.
+        <a href="https://github.com/calyn05"> @Calyn05</a>
+      </p>
+    </footer>
+  </body>
+</html>
