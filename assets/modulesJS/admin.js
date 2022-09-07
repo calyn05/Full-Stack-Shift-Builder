@@ -159,6 +159,7 @@ function openMessageList() {
       });
     });
   } else {
+    adminMainText.innerText = "No messages";
     return;
   }
 }
@@ -338,7 +339,11 @@ function displayUserImages() {
   const users = getFromLocalStorage();
   const userImages = document.querySelectorAll(".admin-user__image");
   userImages.forEach((image, index) => {
-    image.src = users[index].image;
+    if (users[index].image) {
+      image.src = users[index].image;
+    } else {
+      image.src = "../assets/images/default-user-image.jpg";
+    }
   });
 }
 

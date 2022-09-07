@@ -55,8 +55,8 @@ function loadDefaultUserImage() {
     return;
   } else {
     if (window.location.pathname === "/pages/profile.html") {
-      profileImage.src = "../assets/images/manage-my-shifts-logo-dark.jpg";
-      profileImageNav.src = "../assets/images/manage-my-shifts-logo-dark.jpg";
+      profileImage.src = "../assets/images/default-user-image.jpg";
+      profileImageNav.src = "../assets/images/default-user-image.jpg";
     }
   }
 }

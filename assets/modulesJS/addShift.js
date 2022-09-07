@@ -28,8 +28,7 @@ function showProfileImageAddShift() {
   if (userLoggedIn.image) {
     profileImageAddShift.src = userLoggedIn.image;
   } else {
-    profileImageAddShift.src =
-      "../assets/images/manage-my-shifts-logo-dark.jpg";
+    profileImageAddShift.src = "../assets/images/default-user-image.jpg";
   }
 }
 

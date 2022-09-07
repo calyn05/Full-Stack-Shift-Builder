@@ -1534,15 +1534,14 @@ input[aria-hidden="true"] {
 
 .users-container > li {
   width: 100%;
-  padding: 1rem;
+  padding: 1.5rem 2rem;
   background-color: var(--main-background__color);
   border-radius: 1vmin;
 }
 
 .user-item__image {
-  max-width: 15rem;
-  max-height: 15rem;
-  border-radius: 50%;
+  max-width: 14rem;
+  max-height: 14rem;
 }
 
 .admin-user__image {

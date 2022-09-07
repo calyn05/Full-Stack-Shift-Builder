@@ -63,8 +63,7 @@ function showHomepageProfileImage() {
   if (user.image) {
     homepageProfileImage.src = user.image;
   } else {
-    homepageProfileImage.src =
-      "../assets/images/manage-my-shifts-logo-dark.jpg";
+    homepageProfileImage.src = "../assets/images/default-user-image.jpg";
   }
 }
 
