@@ -14,6 +14,7 @@ import {
   resetPasswordForm,
   requestResetBtn,
   cancelRequestBtn,
+  capitalizeUserName,
 } from "./login.js";
 import { getFromLocalStorage, passwordRegex } from "./register.js";
 
@@ -298,19 +299,26 @@ function displayUsers() {
       const userItem = document.createElement("li");
       userItem.classList.add("user-item");
       userItem.setAttribute("aria-hidden", "true");
+      const userBestMonthEarning = user.mostProfitableMonth;
+      const bestMonth = userBestMonthEarning.month;
+      const bestYear = userBestMonthEarning.year;
+      const date = new Date(bestYear, bestMonth - 1);
+      const monthName = date.toLocaleString("default", { month: "long" });
+
+      capitalizeUserName(user);
       userItem.innerHTML = `
       <div class="admin-user__data--box flex-column flow">
         <div class="user-item__data">
-          <p class="user-item__data--name">${user.firstName}</p>
-          <p class="user-item__data--name">${user.lastName}</p>
-          <p class="user-item__data--email">${user.email}</p>
+          <p class="fw-700">${user.firstName}</p>
+          <p class="fw-500">${user.lastName}</p>
+          <p>${user.email}</p>
          </div>
         <div class="user-item__image">
           <img class="admin-user__image" src="" alt="user image" />
         </div>
         <div class="user-item__best--month">
           <p class="user-item__best--month--text">Best month</p>
-          <p class="user-item__best--month--data">${user.mostProfitableMonth.month}</p>
+          <p class="fw-700">${monthName}</p>
           <p class="user-item__best--month--data">${user.mostProfitableMonth.year}</p>
           <p class="user-item__best--month--data">${user.mostProfitableMonth.profit}</p>
         </div>

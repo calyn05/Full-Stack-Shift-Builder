@@ -60,8 +60,11 @@ function showHomepageProfileImage() {
   const user = users.find((user) => {
     return user.loggedIn === true;
   });
-  if (user) {
+  if (user.image) {
     homepageProfileImage.src = user.image;
+  } else {
+    homepageProfileImage.src =
+      "../assets/images/manage-my-shifts-logo-dark.jpg";
   }
 }
 
@@ -307,12 +310,9 @@ function searchShiftsByName(e) {
     filteredShifts.forEach((shift) => {
       options.push(shift.shiftName);
       if (options.length < 2) {
-        console.log(options);
         document.createElement("p");
         searchOptions.innerHTML = `<p>${options[0]}</p>`;
-        console.log(options);
       } else {
-        console.log(options);
         for (let i = 1; i < options.length; i++) {
           searchOptions.innerHTML += `<p>${options[i]}</p>`;
         }
@@ -323,10 +323,7 @@ function searchShiftsByName(e) {
       }
     });
   }
-  console.log(options);
-  console.log(filteredShifts);
   options.forEach((option) => {
-    console.log(option);
     const optionP = document.querySelectorAll("p");
     optionP.forEach((p) => {
       p.addEventListener("click", () => {

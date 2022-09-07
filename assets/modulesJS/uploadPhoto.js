@@ -1,12 +1,13 @@
 // Upload photo and save to local storage
 
-import { sortUsers, loggedOut } from "./login.js";
 import { getFromLocalStorage } from "./register.js";
 import {
   profileImage,
   profileImageNav,
   profileImageUpload,
 } from "./profile.js";
+import { homepageProfileImage } from "./homepage.js";
+import { profileImageAddShift } from "./addShift.js";
 
 // Get user input and send to local storage
 
@@ -15,8 +16,6 @@ function saveImageToLocalStorage(file) {
   const userLoggedIn = users.find((user) => {
     return user.loggedIn === true;
   });
-  console.log(file);
-  console.log(userLoggedIn);
   userLoggedIn.image = file;
   localStorage.setItem("users", JSON.stringify(users));
   showProfileImage();
@@ -45,4 +44,27 @@ function showProfileImage() {
   }
 }
 
-export { imageToBase64, showProfileImage, profileImage, profileImageUpload };
+// Default image on load
+
+function loadDefaultUserImage() {
+  const users = getFromLocalStorage();
+  const userLoggedIn = users.find((user) => {
+    return user.loggedIn === true;
+  });
+  if (userLoggedIn.image) {
+    return;
+  } else {
+    if (window.location.pathname === "/pages/profile.html") {
+      profileImage.src = "../assets/images/manage-my-shifts-logo-dark.jpg";
+      profileImageNav.src = "../assets/images/manage-my-shifts-logo-dark.jpg";
+    }
+  }
+}
+
+export {
+  imageToBase64,
+  showProfileImage,
+  profileImage,
+  profileImageUpload,
+  loadDefaultUserImage,
+};

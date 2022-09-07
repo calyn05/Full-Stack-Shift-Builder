@@ -80,6 +80,7 @@ import {
   profileImage,
   imageToBase64,
   showProfileImage,
+  loadDefaultUserImage,
 } from "./modulesJS/uploadPhoto.js";
 
 import {
@@ -193,6 +194,7 @@ function checkPersonalPages() {
   personalPages.forEach((page) => {
     if (window.location.pathname === page) {
       checkIfLoggedIn();
+      loadDefaultUserImage();
     }
   });
 }
@@ -301,7 +303,7 @@ function checkAdminPage() {
       openMessageList();
     });
     window.onload = displayUserImages();
-    if (closeMessageBoxBtn) {
+    if (closeMessagesBoxBtn) {
       closeMessagesBoxBtn.addEventListener("click", () => {
         window.location.reload();
       });

@@ -25,7 +25,12 @@ function showProfileImageAddShift() {
   const userLoggedIn = users.find((user) => {
     return user.loggedIn === true;
   });
-  profileImageAddShift.src = userLoggedIn.image;
+  if (userLoggedIn.image) {
+    profileImageAddShift.src = userLoggedIn.image;
+  } else {
+    profileImageAddShift.src =
+      "../assets/images/manage-my-shifts-logo-dark.jpg";
+  }
 }
 
 // Verify dates are not already in use and a unique name is used
@@ -240,10 +245,16 @@ function addWorkplace() {
     `;
     workplaceList.appendChild(option);
     workplaceOptionsContainer.setAttribute("aria-hidden", "false");
-
     option.addEventListener("click", () => {
       workplace.value = workplaces[i];
       workplaceOptionsContainer.setAttribute("aria-hidden", "true");
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target !== workplace) {
+        workplaceOptionsContainer.setAttribute("aria-hidden", "true");
+        option.remove();
+      }
     });
   }
 }
