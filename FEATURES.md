@@ -14,11 +14,12 @@
 - added a `Default user image` if the user doesn't upload a profile image
 - added `update and delete` functionality for the user shifts
 - added inactivity `logout` after 60 minutes, which `resets` if the user is `active` on the website
+- added mobile `responsive design` for all pages with `media queries` and a `hamburger menu`
+- workplace `dropdown list` with automatic add-on of new workplaces
 
 # admin account
 
 name : admin
 email : admin@localhost.com
 password : admin
-role : admin
 username : admin
