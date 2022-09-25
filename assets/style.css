@@ -1367,15 +1367,41 @@ textarea:hover {
 }
 
 .shift-details__modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  max-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 2.5rem 1.5rem;
   backdrop-filter: blur(10px);
   background-color: var(--glass-effect__color);
   z-index: 2000;
-  transform: translate(-50%, -50%);
+  overflow-y: auto;
+}
+
+.edit-shift__form {
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}
+
+@media screen and (min-width: 32em) {
+  .shift-details__modal {
+    padding: 3rem;
+  }
+  .edit-buttons__container {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 62em) {
+  .shift-details__modal {
+    max-width: 100%;
+  }
+
+  .form-container__edit--shift {
+    width: 70%;
+  }
 }
 
 .edit-shift__comment--area > textarea {
