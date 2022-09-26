@@ -1,3 +1,5 @@
+import "../assets/style.css";
+
 import { loadingModal } from "./modulesJS/loadingModal.js";
 import {
   localStorageColorTheme,
