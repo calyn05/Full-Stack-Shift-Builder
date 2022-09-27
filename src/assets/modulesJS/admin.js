@@ -1,3 +1,5 @@
+import { defaultProfileImage } from "./uploadPhoto.js";
+
 import {
   resetPasswordContainer,
   resetPasswordEmail,
@@ -16,6 +18,7 @@ import {
   cancelRequestBtn,
   capitalizeUserName,
 } from "./login.js";
+
 import { getFromLocalStorage, passwordRegex } from "./register.js";
 
 const adminLogOutBtn = document.getElementById("admin-logout-btn");
@@ -149,7 +152,6 @@ function openMessageList() {
         // delete message
 
         deleteBtn.addEventListener("click", () => {
-          console.log(admin.messages.indexOf(message));
           admin.messages.splice(admin.messages.indexOf(message), 1);
           localStorage.setItem("admin", JSON.stringify(admin));
           messageItem.remove();
@@ -339,10 +341,10 @@ function displayUserImages() {
   const users = getFromLocalStorage();
   const userImages = document.querySelectorAll(".admin-user__image");
   userImages.forEach((image, index) => {
-    if (users[index].image) {
+    if (users[index].image !== undefined) {
       image.src = users[index].image;
     } else {
-      image.src = "../assets/images/default-user-image.jpg";
+      image.src = defaultProfileImage;
     }
   });
 }

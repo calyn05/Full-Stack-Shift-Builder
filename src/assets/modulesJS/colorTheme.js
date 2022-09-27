@@ -1,12 +1,13 @@
 // Color theme selection
+import moonIcon from "../images/icon-moon.svg";
+import sunIcon from "../images/icon-sun.svg";
+import logoDark from "../images/manage-my-shifts-logo-dark.jpg";
+import logoLight from "../images/manage-my-shifts-logo-light.jpg";
+
 const colorThemeSelection = document.querySelector(".color-mode__container");
 const colorThemeText = document.querySelector(".color-mode__container p");
 const colorThemeIcon = document.querySelector(".color-mode__container img");
 const logo = document.querySelector(".logo img");
-const moonIcon = "../assets/images/icon-moon.svg";
-const sunIcon = "../assets/images/icon-sun.svg";
-const logoDark = "../assets/images/manage-my-shifts-logo-dark.jpg";
-const logoLight = "../assets/images/manage-my-shifts-logo-light.jpg";
 
 function localStorageColorTheme() {
   const colorTheme = localStorage.getItem("colorTheme");

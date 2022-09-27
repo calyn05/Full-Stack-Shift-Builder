@@ -5,18 +5,18 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: {
-    index: "./assets/main.js",
+    index: "./src/main.js",
   },
   output: {
-    path: path.resolve(__dirname, "./dist/assets"),
+    path: path.resolve(__dirname, "./dist"),
     filename: "[name].bundle.js",
     clean: true,
-    assetModuleFilename: "./images/[hash][ext][query]",
+    assetModuleFilename: "images/[hash][ext][query]",
   },
   devtool: "source-map",
   devServer: {
     static: {
-      directory: path.join(__dirname, "./"),
+      directory: path.join(__dirname, "./src"),
     },
     compress: true,
     port: 9000,
@@ -24,41 +24,39 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./index.html",
+      template: "./src/index.html",
       filename: "index.html",
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/pages/add-shift.html",
+      filename: "./pages/add-shift.html",
       chunks: ["index"],
     }),
     new HtmlWebpackPlugin({
-      template: "./pages/add-shift.html",
-      filename: "./pages/add-shift.html",
-      chunks: ["add-shift"],
-    }),
-    new HtmlWebpackPlugin({
-      template: "./pages/admin.html",
+      template: "./src/pages/admin.html",
       filename: "./pages/admin.html",
-      chunks: ["admin"],
+      chunks: ["index"],
     }),
     new HtmlWebpackPlugin({
-      template: "./pages/homepage.html",
+      template: "./src/pages/homepage.html",
       filename: "./pages/homepage.html",
-      chunks: ["homepage"],
+      chunks: ["index"],
     }),
     new HtmlWebpackPlugin({
-      template: "./pages/profile.html",
+      template: "./src/pages/profile.html",
       filename: "./pages/profile.html",
-      chunks: ["profile"],
+      chunks: ["index"],
     }),
     new HtmlWebpackPlugin({
-      template: "./pages/register.html",
+      template: "./src/pages/register.html",
       filename: "./pages/register.html",
-      chunks: ["register"],
+      chunks: ["index"],
     }),
   ],
   optimization: {
     splitChunks: {
       chunks: "all",
     },
-    runtimeChunk: "single",
   },
   module: {
     rules: [
@@ -77,7 +75,7 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(png|svg|jpg|jpe?g|gif)$/i,
+        test: /\.(png|svg|jpg|jpe?g|gif|ico)$/i,
         type: "asset/resource",
       },
     ],

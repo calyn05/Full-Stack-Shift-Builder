@@ -1,5 +1,5 @@
 import { getFromLocalStorage } from "./register.js";
-import { getAdminFromLocalStorage, resetBtn } from "./admin.js";
+import { getAdminFromLocalStorage } from "./admin.js";
 
 // login USER
 
@@ -277,7 +277,6 @@ window.onload = function () {
 
 function logInAdmin() {
   const admin = getAdminFromLocalStorage();
-  console.log(admin);
   if (admin.username === loginEmail.value) {
     if (admin.password === loginPassword.value) {
       admin.loggedIn = true;

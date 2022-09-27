@@ -1,4 +1,5 @@
 // Upload photo and save to local storage
+import defaultProfileImage from "../images/default-user-image.jpg";
 
 import { getFromLocalStorage } from "./register.js";
 import {
@@ -6,8 +7,6 @@ import {
   profileImageNav,
   profileImageUpload,
 } from "./profile.js";
-import { homepageProfileImage } from "./homepage.js";
-import { profileImageAddShift } from "./addShift.js";
 
 // Get user input and send to local storage
 
@@ -52,12 +51,11 @@ function loadDefaultUserImage() {
     return user.loggedIn === true;
   });
   if (userLoggedIn.image) {
-    return;
-  } else {
-    if (window.location.pathname === "/pages/profile.html") {
-      profileImage.src = "../assets/images/default-user-image.jpg";
-      profileImageNav.src = "../assets/images/default-user-image.jpg";
-    }
+    showProfileImage();
+  }
+  if (window.location.toString().includes("/pages/profile")) {
+    profileImage.src = defaultProfileImage;
+    profileImageNav.src = defaultProfileImage;
   }
 }
 
@@ -67,4 +65,5 @@ export {
   profileImage,
   profileImageUpload,
   loadDefaultUserImage,
+  defaultProfileImage,
 };

@@ -1,4 +1,5 @@
 import { getFromLocalStorage } from "./register.js";
+import { defaultProfileImage } from "./uploadPhoto.js";
 
 const profileImageAddShift = document.getElementById("profile-image-add-shift");
 
@@ -25,10 +26,11 @@ function showProfileImageAddShift() {
   const userLoggedIn = users.find((user) => {
     return user.loggedIn === true;
   });
-  if (userLoggedIn.image) {
-    profileImageAddShift.src = userLoggedIn.image;
+  if (!userLoggedIn.image) {
+    profileImageAddShift.src = defaultProfileImage;
   } else {
-    profileImageAddShift.src = "../assets/images/default-user-image.jpg";
+    profileImageAddShift.src = userLoggedIn.image;
+    console.log("image");
   }
 }
 

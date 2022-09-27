@@ -1,12 +1,16 @@
-import "../assets/style.css";
+import "./style.css";
+import favicon from "./assets/images/favicon.ico";
 
-import { loadingModal } from "./modulesJS/loadingModal.js";
+const faviconLink = document.querySelector("link[rel*='icon']");
+faviconLink.href = favicon;
+
+import { loadingModal } from "./assets/modulesJS/loadingModal.js";
 import {
   localStorageColorTheme,
   toggleColorTheme,
   colorThemeSelection,
   removeThemeText,
-} from "./modulesJS/colorTheme.js";
+} from "./assets/modulesJS/colorTheme.js";
 import {
   registerForm,
   registerUser,
@@ -26,7 +30,7 @@ import {
   validateLastName,
   checkEmail,
   checkUsername,
-} from "./modulesJS/register.js";
+} from "./assets/modulesJS/register.js";
 import {
   loginForm,
   loginUser,
@@ -34,7 +38,7 @@ import {
   loginEmail,
   loginPassword,
   checkAdminState,
-} from "./modulesJS/login.js";
+} from "./assets/modulesJS/login.js";
 import {
   updateProfileForm,
   getUserFromLocalStorage,
@@ -54,7 +58,7 @@ import {
   updateConfirmPassword,
   checkUpdateUsername,
   updateProfileBtn,
-} from "./modulesJS/profile.js";
+} from "./assets/modulesJS/profile.js";
 import {
   checkIfLoggedIn,
   personalPages,
@@ -62,28 +66,25 @@ import {
   checkIfUserHasShifts,
   tableSection,
   showHomepageProfileImage,
-  homepageProfileImage,
-} from "./modulesJS/homepage.js";
+} from "./assets/modulesJS/homepage.js";
 import {
   addShift,
   addShiftForm,
   monthlyProfit,
   showProfileImageAddShift,
-  profileImageAddShift,
   checkUniqueName,
   checkDate,
   inputDate,
   name,
   addWorkplace,
   workLocationInput,
-} from "./modulesJS/addShift.js";
+} from "./assets/modulesJS/addShift.js";
 import {
   profileImageUpload,
-  profileImage,
   imageToBase64,
   showProfileImage,
   loadDefaultUserImage,
-} from "./modulesJS/uploadPhoto.js";
+} from "./assets/modulesJS/uploadPhoto.js";
 
 import {
   getAdminFromLocalStorage,
@@ -96,10 +97,9 @@ import {
   requestResetEmail,
   requestResetForm,
   displayUsers,
-  adminPageUserImage,
   displayUserImages,
   closeMessagesBoxBtn,
-} from "./modulesJS/admin.js";
+} from "./assets/modulesJS/admin.js";
 
 window.addEventListener("load", loadingModal);
 window.addEventListener("DOMContentLoaded", localStorageColorTheme);
@@ -194,7 +194,7 @@ showPassword.forEach((btn) => {
 
 function checkPersonalPages() {
   personalPages.forEach((page) => {
-    if (window.location.pathname === page) {
+    if (window.location.toString().includes(page)) {
       checkIfLoggedIn();
       loadDefaultUserImage();
     }
@@ -203,7 +203,7 @@ function checkPersonalPages() {
 
 window.addEventListener("DOMContentLoaded", checkPersonalPages);
 window.addEventListener("load", () => {
-  if (window.location.pathname === "/pages/homepage.html") {
+  if (window.location.toString().includes("/pages/homepage")) {
     checkIfUserHasShifts();
     window.onload = showHomepageProfileImage();
   } else {
@@ -296,7 +296,7 @@ window.addEventListener("DOMContentLoaded", checkMonthlyProfit);
 // Admin page
 
 function checkAdminPage() {
-  if (window.location.pathname === "/pages/admin.html") {
+  if (window.location.toString().includes("/pages/admin")) {
     adminLogOutBtn.addEventListener("click", logOutAdmin);
     checkAdminState();
     checkAdminMessages();

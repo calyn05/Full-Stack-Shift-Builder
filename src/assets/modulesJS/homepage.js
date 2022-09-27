@@ -1,27 +1,17 @@
-import {
-  loginTime,
-  sortUsers,
-  loggedOut,
-  loginUser,
-  capitalizeUserName,
-} from "./login.js";
+import closeSvg from "../images/icon-close.svg";
+
+import { loginTime, sortUsers, loggedOut } from "./login.js";
 import { getFromLocalStorage } from "./register.js";
 import { monthlyProfit } from "./addShift.js";
+import { defaultProfileImage } from "./uploadPhoto.js";
 
 const homepageProfileImage = document.getElementById("homepage-profile-image");
 
 const userNameText = document.getElementById("homepage-username");
-const personalPages = [
-  "/pages/homepage.html",
-  "/pages/profile.html",
-  "/pages/add-shift.html",
-];
+const personalPages = ["/pages/homepage", "/pages/profile", "/pages/add-shift"];
 const noShifts = document.getElementById("no-shifts");
-const tableCaption = document.getElementById("table-caption");
 const searchSection = document.getElementById("search-section");
-const searchByNameForm = document.getElementById("search-by-name");
 const searchOptions = document.getElementById("search-options");
-const searchByDateForm = document.getElementById("search-by-date");
 const searchFromDate = document.getElementById("from-date");
 const searchToDate = document.getElementById("to-date");
 const tableSection = document.getElementById("table-section");
@@ -48,7 +38,6 @@ const editWorkplace = document.getElementById("edit-workplace");
 const editShiftName = document.getElementById("edit-shift-name");
 const editCommentArea = document.getElementById("edit-shift-notes");
 
-const updateShiftBtn = document.getElementById("update-shift-btn");
 const deleteShiftBtn = document.getElementById("delete-shift-btn");
 const confirmDeleteBtn = document.getElementById("confirm-delete__shift--btn");
 const cancelDeleteBtn = document.getElementById("cancel-delete-btn");
@@ -63,7 +52,7 @@ function showHomepageProfileImage() {
   if (user.image) {
     homepageProfileImage.src = user.image;
   } else {
-    homepageProfileImage.src = "../assets/images/default-user-image.jpg";
+    homepageProfileImage.src = defaultProfileImage;
   }
 }
 
@@ -77,7 +66,7 @@ function checkIfLoggedIn() {
   if (user) {
     userNameText.innerText = user.username;
     personalPages.forEach((page) => {
-      if (page === window.location.pathname) {
+      if (window.location.href.includes(page)) {
         const inactivityTime = loginTime;
         let timeOut = setTimeout(logUserOut, inactivityTime);
         window.addEventListener("load", () => {
@@ -198,6 +187,7 @@ function updateShift(e) {
 
 function checkForModalOpened() {
   if (editShiftModal) {
+    closeEditShiftModal.src = closeSvg;
     editShiftForm.addEventListener("submit", updateShift);
     editShiftName.disabled = true;
     deleteShiftBtn.addEventListener("click", openDeleteModal);

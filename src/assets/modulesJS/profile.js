@@ -1,4 +1,4 @@
-import { getFromLocalStorage, emailRegex, passwordRegex } from "./register.js";
+import { getFromLocalStorage, passwordRegex } from "./register.js";
 import { capitalizeUserName } from "./login.js";
 
 const updateProfileForm = document.getElementById("update-form");
