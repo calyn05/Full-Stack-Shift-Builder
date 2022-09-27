@@ -30,7 +30,6 @@ function showProfileImageAddShift() {
     profileImageAddShift.src = defaultProfileImage;
   } else {
     profileImageAddShift.src = userLoggedIn.image;
-    console.log("image");
   }
 }
 
